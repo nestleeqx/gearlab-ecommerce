@@ -1,11 +1,15 @@
 import Header from '@/components/layout/Header/Header'
-import Banner from '@/components/ui/Banner/Banner'
+import AdvantagesSection from '@/components/sections/AdvantagesSection/AdvantagesSection'
+import BannerSection from '@/components/sections/BannerSection/BannerSection'
+import BestSellingSection from '@/components/sections/BestSellingSection/BestSellingSection'
 
 export default function Home() {
 	return (
 		<div>
 			<Header />
-			<Banner />
+			<BannerSection />
+			<AdvantagesSection />
+			<BestSellingSection />
 		</div>
 	)
 }

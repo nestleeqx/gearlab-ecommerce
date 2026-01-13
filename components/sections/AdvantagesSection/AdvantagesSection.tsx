@@ -1,9 +1,10 @@
+import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import AdvantagesCard from '@/components/ui/AdvantagesCard/AdvantagesCard'
 import { Award, ShieldCheck, Truck } from 'lucide-react'
 
-export default function Advantages() {
+export default function AdvantagesSection() {
 	return (
-		<div className='container mx-auto mt-22 flex justify-around items-center'>
+		<PageContainer className='mt-22 flex justify-around items-center'>
 			<AdvantagesCard
 				icon={<Truck className='w-10 text-neutral-900' />}
 				title='Free Shipping'
@@ -20,6 +21,6 @@ export default function Advantages() {
 				title='Secure Payment'
 				content='Your security is our priority. Your payments are secure with us.'
 			/>
-		</div>
+		</PageContainer>
 	)
 }
