@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button/Button'
+import Text from '@/components/ui/Text/Text'
 import { MoveRight } from 'lucide-react'
 import Image from 'next/image'
 
@@ -10,9 +11,12 @@ export default function Banner() {
 					<h2 className='text-heading-h2 font-semibold text-neutral-800'>
 						Fresh Arrivals Online
 					</h2>
-					<p className='text-body text-neutral-600 mt-3'>
+					<Text
+						className='mt-3'
+						color={600}
+					>
 						Discover Our Newest Collection Today.
-					</p>
+					</Text>
 					<Button
 						variant='default'
 						size='lg'
