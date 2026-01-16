@@ -9,11 +9,38 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
+const CATEGORIES = [
+	{
+		value: 'perfume',
+		label: 'Perfume'
+	},
+	{
+		value: 'trousers',
+		label: 'Trousers'
+	},
+	{
+		value: 'shoe',
+		label: 'Shoe'
+	},
+	{
+		value: 'handbag',
+		label: 'Handbag'
+	},
+	{
+		value: 'hat',
+		label: 'Hat'
+	},
+	{
+		value: 'thermos',
+		label: 'Thermos'
+	}
+]
+
 export default function Menu() {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	return (
-		<ul className='flex ml-26 space-x-8 items-baseline'>
+		<ul className='flex space-x-8 items-baseline'>
 			<li>
 				<Link
 					href='/'
@@ -38,38 +65,18 @@ export default function Menu() {
 						</span>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
-						<DropdownMenuItem>
-							<Link
-								href='/'
-								className='text-body text-neutral-500 font-medium'
-							>
-								Profile
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem>
-							<Link
-								href='/'
-								className='text-body text-neutral-500 font-medium'
-							>
-								Billing
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem>
-							<Link
-								href='/'
-								className='text-body text-neutral-500 font-medium'
-							>
-								Team
-							</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem>
-							<Link
-								href='/'
-								className='text-body text-neutral-500 font-medium'
-							>
-								Subscription
-							</Link>
-						</DropdownMenuItem>
+						{CATEGORIES.map(elem => {
+							return (
+								<DropdownMenuItem key={elem.value}>
+									<Link
+										href={`/products?cat=${elem.value}`}
+										className='text-body text-neutral-500 font-medium'
+									>
+										{elem.label}
+									</Link>
+								</DropdownMenuItem>
+							)
+						})}
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</li>
@@ -83,7 +90,7 @@ export default function Menu() {
 			</li>
 			<li>
 				<Link
-					href='/contact'
+					href='/contacts'
 					className='text-body text-neutral-500 font-medium'
 				>
 					Contact
