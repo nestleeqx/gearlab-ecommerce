@@ -1,4 +1,5 @@
 'use client'
+import { categoriesList } from '@/app/data/categories.data'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -8,33 +9,6 @@ import {
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
-
-const CATEGORIES = [
-	{
-		value: 'perfume',
-		label: 'Perfume'
-	},
-	{
-		value: 'trousers',
-		label: 'Trousers'
-	},
-	{
-		value: 'shoe',
-		label: 'Shoe'
-	},
-	{
-		value: 'handbag',
-		label: 'Handbag'
-	},
-	{
-		value: 'hat',
-		label: 'Hat'
-	},
-	{
-		value: 'thermos',
-		label: 'Thermos'
-	}
-]
 
 export default function Menu() {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -65,7 +39,7 @@ export default function Menu() {
 						</span>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
-						{CATEGORIES.map(elem => {
+						{categoriesList.map(elem => {
 							return (
 								<DropdownMenuItem key={elem.value}>
 									<Link

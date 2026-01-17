@@ -7,6 +7,16 @@ export interface iProducts {
 	price: number
 }
 
+interface iProductColors {
+	id: number
+	color: string
+}
+
+interface iProductSizes {
+	id: number
+	size: string
+}
+
 export const productsBestSelling: iProducts[] = [
 	{
 		id: 0,
@@ -74,5 +84,47 @@ export const productsFeatured: iProducts[] = [
 		title: 'MOCKUP Black',
 		status: true,
 		price: 3000
+	}
+]
+
+export const productColors: iProductColors[] = [
+	{
+		id: 0,
+		color: 'blue-400'
+	},
+	{
+		id: 1,
+		color: 'yellow-400'
+	},
+	{
+		id: 2,
+		color: 'green-400'
+	},
+	{
+		id: 3,
+		color: 'blue-900'
+	}
+]
+
+export const productSizes: iProductSizes[] = [
+	{
+		id: 0,
+		size: 's'
+	},
+	{
+		id: 1,
+		size: 'm'
+	},
+	{
+		id: 2,
+		size: 'l'
+	},
+	{
+		id: 3,
+		size: 'xl'
+	},
+	{
+		id: 4,
+		size: 'xxl'
 	}
 ]
