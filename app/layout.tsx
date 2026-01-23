@@ -1,5 +1,7 @@
 import Footer from '@/components/layout/Footer/Footer'
 import Header from '@/components/layout/Header/Header'
+import { Toaster } from '@/components/ui/Sonner/Sonner'
+import { CartProvider } from '@/context/CartContext'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -22,9 +24,12 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={`${interSans.variable} antialiased`}>
-				<Header />
-				{children}
-				<Footer />
+				<CartProvider>
+					<Header />
+					{children}
+					<Footer />
+				</CartProvider>
+				<Toaster />
 			</body>
 		</html>
 	)

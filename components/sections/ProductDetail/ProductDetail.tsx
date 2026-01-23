@@ -1,4 +1,5 @@
 'use client'
+import { useAddToCart } from '@/hooks/useAddToCart'
 import { formatPrice } from '@/lib/utils'
 import { iProduct } from '@/services/products'
 import { Heart, Star } from 'lucide-react'
@@ -14,6 +15,22 @@ import Title from '../../ui/Title/Title'
 
 export default function ProductDetail({ product }: { product: iProduct }) {
 	const [quantity, setQuantity] = useState<number>(1)
+	const [selectedColor, setSelectedColor] = useState<string>(product.color[0])
+	const [selectedSize, setSelectedSize] = useState<string>(product.size[0])
+	const { handleAddToCart } = useAddToCart()
+
+	const onAddToCart = () => {
+		handleAddToCart({
+			id: product.id,
+			slug: product.slug,
+			title: product.title,
+			price: product.price,
+			image: product.images[0],
+			color: selectedColor,
+			size: selectedSize,
+			quantity: quantity
+		})
+	}
 
 	return (
 		<div>
@@ -34,20 +51,16 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 				<Text className='mb-2.5'>Available Colors</Text>
 				<ProductColorSelector
 					availableColors={product.color}
-					onColorSelect={color => {
-						console.log('Selected color:', color)
-					}}
-					defaultColor={product.color[0]}
+					onColorSelect={setSelectedColor}
+					defaultColor={selectedColor}
 				/>
 			</div>
 			<div className='mt-4'>
 				<Text className='mb-2.5'>Select Size</Text>
 				<ProductSizeSelector
 					availableSizes={product.size}
-					onSizeSelect={size => {
-						console.log('Selected size:', size)
-					}}
-					defaultSize={product.size[0]}
+					onSizeSelect={setSelectedSize}
+					defaultSize={selectedSize}
 				/>
 			</div>
 			<div className='mt-8'>
@@ -64,6 +77,7 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 					<Button
 						size='lg'
 						className='px-25 rounded-sm'
+						onClick={onAddToCart}
 					>
 						Add to cart
 					</Button>

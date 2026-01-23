@@ -1,4 +1,5 @@
 'use client'
+import { useAddToCart } from '@/hooks/useAddToCart'
 import { cn, formatPrice } from '@/lib/utils'
 import { CirclePlus, Heart } from 'lucide-react'
 import Image from 'next/image'
@@ -8,11 +9,14 @@ import { Button } from '../Button/Button'
 import ProductStatus from '../ProductStatus/ProductStatus'
 
 interface iProductCard {
+	id: number
 	slug: string
 	images: string[]
 	title: string
 	status: boolean
 	price: number
+	color: string
+	size: string[]
 }
 
 interface iProductClass extends iProductCard {
@@ -21,13 +25,29 @@ interface iProductClass extends iProductCard {
 
 export default function ProductCard({
 	className,
+	id,
 	slug,
 	images,
 	title,
 	status,
-	price
+	price,
+	color,
+	size
 }: iProductClass) {
 	const [isHover, setIsHover] = useState<boolean>(false)
+	const { handleAddToCart } = useAddToCart()
+
+	const onAddToCart = () => {
+		handleAddToCart({
+			id,
+			slug,
+			title,
+			price,
+			image: images[0],
+			color,
+			size: size[0]
+		})
+	}
 
 	return (
 		<div className={cn('max-w-63 max-h-109', className)}>
@@ -56,8 +76,9 @@ export default function ProductCard({
 					<Button
 						size='lg'
 						className='absolute left-0 bottom-0 w-full rounded-b-sm'
+						onClick={onAddToCart}
 					>
-						Add to cart {<CirclePlus />}
+						Add to cart <CirclePlus />
 					</Button>
 				</div>
 			</div>

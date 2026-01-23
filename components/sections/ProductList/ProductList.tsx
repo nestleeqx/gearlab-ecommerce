@@ -44,11 +44,14 @@ export default function ProductList() {
 							return (
 								<ProductCard
 									key={elem.id}
+									id={elem.id}
 									slug={elem.slug}
 									images={elem.images}
 									title={elem.title}
 									status={elem.status}
 									price={elem.price}
+									color={elem.color[0]}
+									size={elem.size}
 								/>
 							)
 						})}
@@ -61,11 +64,14 @@ export default function ProductList() {
 						return (
 							<ProductCard
 								key={elem.id}
+								id={elem.id}
 								slug={elem.slug}
 								images={elem.images}
 								title={elem.title}
 								status={elem.status}
 								price={elem.price}
+								color={elem.color[0]}
+								size={elem.size}
 							/>
 						)
 					})}
