@@ -1,6 +1,7 @@
 import Footer from '@/components/layout/Footer/Footer'
 import Header from '@/components/layout/Header/Header'
 import { Toaster } from '@/components/ui/Sonner/Sonner'
+import { AuthProvider } from '@/context/AuthContext'
 import { CartProvider } from '@/context/CartContext'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -24,11 +25,13 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={`${interSans.variable} antialiased`}>
-				<CartProvider>
-					<Header />
-					{children}
-					<Footer />
-				</CartProvider>
+				<AuthProvider>
+					<CartProvider>
+						<Header />
+						{children}
+						<Footer />
+					</CartProvider>
+				</AuthProvider>
 				<Toaster />
 			</body>
 		</html>
