@@ -1,52 +1,79 @@
 'use client'
 
+import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
+import Text from '@/components/ui/Text/Text'
 import { useAuth } from '@/context/AuthContext'
-import { cn } from '@/lib/utils'
+import { useZodValidation } from '@/hooks/useZodValidation'
+import { accountDataSchema } from '@/lib/validationSchemas'
 import { getInitials } from '@/services/reviews'
-import { useState } from 'react'
-
-export interface iAccountData {
-	name: string
-	email: string
-	global?: string
-}
+import { useEffect, useMemo, useState } from 'react'
 
 export default function AccountPage() {
-	const { user } = useAuth()
-	const [name, setName] = useState(user?.name || '')
-	const [email, setEmail] = useState(user?.email || '')
-	const [errors, setErrors] = useState<Partial<iAccountData>>({})
+	const { user, updateAccount } = useAuth()
+	const [isSuccess, setIsSuccess] = useState<boolean>(false)
+	const initialValues = useMemo(
+		() => ({
+			name: user?.name || '',
+			email: user?.email || ''
+		}),
+		[user?.name, user?.email]
+	)
 
-	const validateForm = (): boolean => {
-		const newErrors: Partial<iAccountData> = {}
-
-		if (!name.trim()) {
-			newErrors.name = 'Name is required'
-		} else if (name.length < 8) {
-			newErrors.name = 'Name must be at least 8 characters long'
-		}
-
-		if (!email.trim()) {
-			newErrors.email = 'Email is required'
-		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-			newErrors.email = 'Invalid email format'
-		}
-
-		setErrors(newErrors)
-		return Object.keys(newErrors).length === 0
-	}
+	const {
+		values,
+		errors,
+		handleChange,
+		validateForm,
+		setGlobalError,
+		reset
+	} = useZodValidation(accountDataSchema, initialValues)
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
 		if (validateForm()) {
-			alert('Account details updated!')
+			const success = updateAccount(values.name, values.email)
+
+			if (success) {
+				setIsSuccess(true)
+				reset()
+			} else {
+				setGlobalError('Failed to update account details')
+			}
 		}
 	}
 
+	useEffect(() => {
+		if (user) {
+			reset()
+		}
+	}, [user, reset])
+
 	if (!user) return null
+
+	if (isSuccess) {
+		return (
+			<>
+				<PageContainer>
+					<div className='text-center mt-12 py-12'>
+						<Text className='text-heading-h4 text-neutral-900 font-medium'>
+							Account data has been successfully updated!
+						</Text>
+						<Button
+							variant='default'
+							size='lg'
+							className='mt-6 font-medium rounded-sm'
+							onClick={() => setIsSuccess(false)}
+						>
+							Continue
+						</Button>
+					</div>
+				</PageContainer>
+			</>
+		)
+	}
 
 	return (
 		<div>
@@ -71,18 +98,11 @@ export default function AccountPage() {
 						<Input
 							id='fullName'
 							type='text'
-							value={name}
-							onChange={e => setName(e.target.value)}
-							className={cn(
-								'w-full py-5',
-								errors.name ? 'border-red-500' : ''
-							)}
+							value={values.name}
+							onChange={e => handleChange('name', e.target.value)}
+							className='w-full py-5'
+							error={errors.name}
 						/>
-						{errors.name && (
-							<p className='mt-1 text-body text-red-500'>
-								{errors.name}
-							</p>
-						)}
 					</div>
 					<div>
 						<label
@@ -94,18 +114,13 @@ export default function AccountPage() {
 						<Input
 							id='email'
 							type='email'
-							value={email}
-							onChange={e => setEmail(e.target.value)}
-							className={cn(
-								'w-full py-5',
-								errors.email ? 'border-red-500' : ''
-							)}
+							value={values.email}
+							onChange={e =>
+								handleChange('email', e.target.value)
+							}
+							className='w-full py-5'
+							error={errors.email}
 						/>
-						{errors.email && (
-							<p className='mt-1 text-body text-red-500'>
-								{errors.email}
-							</p>
-						)}
 					</div>
 					{errors.global && (
 						<p className='mt-1 text-body text-red-500'>

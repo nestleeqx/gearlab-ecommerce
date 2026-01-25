@@ -1,58 +1,45 @@
 'use client'
 
-import { iResetPassword } from '@/app/(auth)/reset-password/page'
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
 import Text from '@/components/ui/Text/Text'
 import { useAuth } from '@/context/AuthContext'
-import { cn } from '@/lib/utils'
+import { useZodValidation } from '@/hooks/useZodValidation'
+import {
+	ChangePasswordFormData,
+	changePasswordSchema
+} from '@/lib/validationSchemas'
 import { useState } from 'react'
 
+const initialPasswordValues: ChangePasswordFormData = {
+	newPassword: '',
+	confirmPassword: ''
+}
+
 export default function PasswordPage() {
-	const [newPassword, setNewPassword] = useState('')
-	const [confirmPassword, setConfirmPassword] = useState('')
-	const [errors, setErrors] = useState<Partial<iResetPassword>>({})
+	const {
+		values,
+		errors,
+		handleChange,
+		validateForm,
+		setGlobalError,
+		reset
+	} = useZodValidation(changePasswordSchema, initialPasswordValues)
 	const [isSuccess, setIsSuccess] = useState<boolean>(false)
 	const { user, resetPassword } = useAuth()
-
-	const validateForm = (): boolean => {
-		const newErrors: Partial<iResetPassword> = {}
-
-		if (!newPassword.trim()) {
-			newErrors.newPassword = 'Password is required'
-		} else if (newPassword.length < 6) {
-			newErrors.newPassword =
-				'Password must be at least 6 characters long'
-		}
-
-		if (!confirmPassword.trim()) {
-			newErrors.confirmPassword = 'Password is required'
-		} else if (newPassword.length < 6) {
-			newErrors.confirmPassword =
-				'Password must be at least 6 characters long'
-		}
-
-		if (newPassword !== confirmPassword) {
-			newErrors.global = 'Passwords do not match'
-		}
-
-		setErrors(newErrors)
-		return Object.keys(newErrors).length === 0
-	}
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
 		if (user) {
 			if (validateForm()) {
-				const success = resetPassword(user.email, newPassword)
+				const success = resetPassword(user.email, values.newPassword)
 				if (success) {
 					setIsSuccess(true)
-					setNewPassword('')
-					setConfirmPassword('')
+					reset()
 				} else {
-					setErrors({ global: 'Failed to change password' })
+					setGlobalError('Failed to change password')
 				}
 			}
 		}
@@ -100,18 +87,13 @@ export default function PasswordPage() {
 						<Input
 							id='newPassword'
 							type='password'
-							value={newPassword}
-							onChange={e => setNewPassword(e.target.value)}
-							className={cn(
-								'w-full py-5',
-								errors.newPassword ? 'border-red-500' : ''
-							)}
+							value={values.newPassword}
+							onChange={e =>
+								handleChange('newPassword', e.target.value)
+							}
+							className='w-full py-5'
+							error={errors.newPassword}
 						/>
-						{errors.newPassword && (
-							<p className='mt-1 text-body text-red-500'>
-								{errors.newPassword}
-							</p>
-						)}
 					</div>
 					<div>
 						<label
@@ -123,18 +105,13 @@ export default function PasswordPage() {
 						<Input
 							id='confirmPassword'
 							type='password'
-							value={confirmPassword}
-							onChange={e => setConfirmPassword(e.target.value)}
-							className={cn(
-								'w-full py-5',
-								errors.confirmPassword ? 'border-red-500' : ''
-							)}
+							value={values.confirmPassword}
+							onChange={e =>
+								handleChange('confirmPassword', e.target.value)
+							}
+							className='w-full py-5'
+							error={errors.confirmPassword}
 						/>
-						{errors.confirmPassword && (
-							<p className='mt-1 text-body text-red-500'>
-								{errors.confirmPassword}
-							</p>
-						)}
 					</div>
 					{errors.global && (
 						<p className='mt-1 text-body text-red-500'>

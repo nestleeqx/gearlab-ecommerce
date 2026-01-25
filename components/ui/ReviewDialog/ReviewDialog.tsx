@@ -8,7 +8,8 @@ import {
 } from '@/components/ui/Dialog/Dialog'
 import { Input } from '@/components/ui/Input/Input'
 import { Textarea } from '@/components/ui/Textarea/Textarea'
-import { cn } from '@/lib/utils'
+import { useZodValidation } from '@/hooks/useZodValidation'
+import { ReviewFormData, reviewSchema } from '@/lib/validationSchemas'
 import { iReview } from '@/services/reviews'
 import { Star } from 'lucide-react'
 import { useState } from 'react'
@@ -27,71 +28,39 @@ export default function ReviewDialog({
 	onSubmit,
 	productId
 }: iReviewDialog) {
-	const [email, setEmail] = useState('')
-	const [fullName, setFullName] = useState('')
-	const [comment, setComment] = useState('')
-	const [rating, setRating] = useState(0)
-	const [hoveredRating, setHoveredRating] = useState(0)
-	const [errors, setErrors] = useState<{
-		email?: string
-		fullName?: string
-		comment?: string
-		rating?: string
-	}>({})
-
-	const validateForm = () => {
-		const newErrors: typeof errors = {}
-
-		if (!email.trim()) {
-			newErrors.email = 'Email is required'
-		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-			newErrors.email = 'Invalid email format'
-		}
-
-		if (!fullName.trim()) {
-			newErrors.fullName = 'Full name is required'
-		}
-
-		if (!comment.trim()) {
-			newErrors.comment = 'Review is required'
-		} else if (comment.trim().length < 10) {
-			newErrors.comment = 'Review must be at least 10 characters'
-		}
-
-		if (rating === 0) {
-			newErrors.rating = 'Please select a rating'
-		}
-
-		setErrors(newErrors)
-		return Object.keys(newErrors).length === 0
+	const initialReviewData: ReviewFormData = {
+		email: '',
+		fullName: '',
+		comment: '',
+		rating: 0
 	}
+	const {
+		values,
+		errors,
+		handleChange,
+		handleNumberChange,
+		validateForm,
+		reset
+	} = useZodValidation(reviewSchema, initialReviewData)
+	const [hoveredRating, setHoveredRating] = useState(0)
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
-		if (!validateForm()) return
-
-		onSubmit({
-			productId,
-			author: fullName.trim(),
-			rating,
-			comment: comment.trim()
-		})
-
-		setEmail('')
-		setFullName('')
-		setComment('')
-		setRating(0)
-		setErrors({})
-		onOpenChange(false)
+		if (validateForm()) {
+			onSubmit({
+				productId,
+				author: values.fullName.trim(),
+				rating: values.rating,
+				comment: values.comment.trim()
+			})
+			reset()
+			onOpenChange(false)
+		}
 	}
 
 	const handleClose = () => {
-		setEmail('')
-		setFullName('')
-		setComment('')
-		setRating(0)
-		setErrors({})
+		reset()
 		onOpenChange(false)
 	}
 
@@ -126,19 +95,14 @@ export default function ReviewDialog({
 						<Input
 							id='email'
 							type='email'
-							value={email}
-							onChange={e => setEmail(e.target.value)}
+							value={values.email}
+							onChange={e =>
+								handleChange('email', e.target.value)
+							}
 							placeholder='Enter your email'
-							className={cn(
-								'w-full py-5',
-								errors.email ? 'border-red-500' : ''
-							)}
+							className='w-full py-5'
+							error={errors.email}
 						/>
-						{errors.email && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.email}
-							</p>
-						)}
 					</div>
 					<div className='mt-3.5'>
 						<label
@@ -150,19 +114,14 @@ export default function ReviewDialog({
 						<Input
 							id='fullName'
 							type='text'
-							value={fullName}
-							onChange={e => setFullName(e.target.value)}
+							value={values.fullName}
+							onChange={e =>
+								handleChange('fullName', e.target.value)
+							}
 							placeholder='Enter your full name'
-							className={cn(
-								'w-full py-5',
-								errors.fullName ? 'border-red-500' : ''
-							)}
+							className='w-full py-5'
+							error={errors.fullName}
 						/>
-						{errors.fullName && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.fullName}
-							</p>
-						)}
 					</div>
 					<div className='mt-3.5'>
 						<label
@@ -173,19 +132,14 @@ export default function ReviewDialog({
 						</label>
 						<Textarea
 							id='review'
-							value={comment}
-							onChange={e => setComment(e.target.value)}
+							value={values.comment}
+							onChange={e =>
+								handleChange('comment', e.target.value)
+							}
 							placeholder='Write your review here...'
-							className={cn(
-								'w-full resize-none h-32 max-h-32',
-								errors.comment ? 'border-red-500' : ''
-							)}
+							className='w-full resize-none h-32 max-h-32'
+							error={errors.comment}
 						/>
-						{errors.comment && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.comment}
-							</p>
-						)}
 					</div>
 					<div className='mt-3.5'>
 						<div className='flex items-center gap-2'>
@@ -195,7 +149,12 @@ export default function ReviewDialog({
 									<button
 										key={index}
 										type='button'
-										onClick={() => setRating(starValue)}
+										onClick={() =>
+											handleNumberChange(
+												'rating',
+												starValue
+											)
+										}
 										onMouseEnter={() =>
 											setHoveredRating(starValue)
 										}
@@ -205,7 +164,7 @@ export default function ReviewDialog({
 										<Star
 											className={`h-6 w-6 ${
 												starValue <=
-												(hoveredRating || rating)
+												(hoveredRating || values.rating)
 													? 'fill-neutral-900 text-neutral-900'
 													: 'fill-neutral-300 text-neutral-300'
 											}`}

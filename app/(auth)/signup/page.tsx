@@ -5,61 +5,33 @@ import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
 import PageTitleWide from '@/components/ui/PageTitleWide/PageTitleWide'
 import { useAuth } from '@/context/AuthContext'
-import { cn } from '@/lib/utils'
+import { useZodValidation } from '@/hooks/useZodValidation'
+import { SignupFormData, signupSchema } from '@/lib/validationSchemas'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 
-export interface iSignup {
-	name: string
-	email: string
-	password: string
-	global?: string
+const initialValues: SignupFormData = {
+	name: '',
+	email: '',
+	password: ''
 }
 
 export default function SignUpPage() {
-	const [name, setName] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [errors, setErrors] = useState<Partial<iSignup>>({})
+	const { values, errors, handleChange, validateForm, setGlobalError } =
+		useZodValidation(signupSchema, initialValues)
 	const { signup } = useAuth()
 	const router = useRouter()
-
-	const validateForm = (): boolean => {
-		const newErrors: Partial<iSignup> = {}
-
-		if (!name.trim()) {
-			newErrors.name = 'Name is required'
-		} else if (name.length < 8) {
-			newErrors.name = 'Name must be at least 8 characters long'
-		}
-
-		if (!email.trim()) {
-			newErrors.email = 'Email is required'
-		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-			newErrors.email = 'Invalid email format'
-		}
-
-		if (!password.trim()) {
-			newErrors.password = 'Password is required'
-		} else if (password.length < 6) {
-			newErrors.password = 'Password must be at least 6 characters long'
-		}
-
-		setErrors(newErrors)
-		return Object.keys(newErrors).length === 0
-	}
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
 		if (validateForm()) {
-			const success = signup(name, email, password)
+			const success = signup(values.name, values.email, values.password)
 
 			if (success) {
 				router.push('/')
 			} else {
-				setErrors({ global: 'Invalid user data' })
+				setGlobalError('Invalid user data')
 			}
 		}
 	}
@@ -127,19 +99,14 @@ export default function SignUpPage() {
 								<Input
 									id='name'
 									type='text'
-									value={name}
-									onChange={e => setName(e.target.value)}
+									value={values.name}
+									onChange={e =>
+										handleChange('name', e.target.value)
+									}
 									placeholder='Enter your name'
-									className={cn(
-										'w-full py-5',
-										errors.email ? 'border-red-500' : ''
-									)}
+									className='w-full py-5'
+									error={errors.name}
 								/>
-								{errors.name && (
-									<p className='mt-1 text-body text-red-500'>
-										{errors.name}
-									</p>
-								)}
 							</div>
 							<div>
 								<label
@@ -151,19 +118,14 @@ export default function SignUpPage() {
 								<Input
 									id='email'
 									type='email'
-									value={email}
-									onChange={e => setEmail(e.target.value)}
+									value={values.email}
+									onChange={e =>
+										handleChange('email', e.target.value)
+									}
 									placeholder='Enter your email'
-									className={cn(
-										'w-full py-5',
-										errors.email ? 'border-red-500' : ''
-									)}
+									className='w-full py-5'
+									error={errors.email}
 								/>
-								{errors.email && (
-									<p className='mt-1 text-body text-red-500'>
-										{errors.email}
-									</p>
-								)}
 							</div>
 							<div>
 								<label
@@ -175,19 +137,14 @@ export default function SignUpPage() {
 								<Input
 									id='password'
 									type='password'
-									value={password}
-									onChange={e => setPassword(e.target.value)}
+									value={values.password}
+									onChange={e =>
+										handleChange('password', e.target.value)
+									}
 									placeholder='Enter your password'
-									className={cn(
-										'w-full py-5',
-										errors.password ? 'border-red-500' : ''
-									)}
+									className='w-full py-5'
+									error={errors.password}
 								/>
-								{errors.password && (
-									<p className='mt-1 text-body text-red-500'>
-										{errors.password}
-									</p>
-								)}
 							</div>
 							{errors.global && (
 								<p className='mt-1 text-body text-red-500'>

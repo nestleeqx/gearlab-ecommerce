@@ -5,31 +5,36 @@ import { Button } from '@/components/ui/Button/Button'
 import { Input } from '@/components/ui/Input/Input'
 import PageTitleWide from '@/components/ui/PageTitleWide/PageTitleWide'
 import { useAuth } from '@/context/AuthContext'
-import { cn } from '@/lib/utils'
+import { useZodValidation } from '@/hooks/useZodValidation'
+import {
+	ForgotPasswordFormData,
+	forgotPasswordSchema
+} from '@/lib/validationSchemas'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+
+const initialValues: ForgotPasswordFormData = {
+	email: ''
+}
 
 export default function ForgotPasswordPage() {
-	const [email, setEmail] = useState('')
-	const [error, setError] = useState('')
+	const { values, errors, handleChange, validateForm, setGlobalError } =
+		useZodValidation(forgotPasswordSchema, initialValues)
 	const { checkEmailExists } = useAuth()
 	const router = useRouter()
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		setError('')
 
-		if (!email) {
-			setError('Please enter your email')
-			return
-		}
+		if (validateForm()) {
+			const exists = checkEmailExists(values.email)
 
-		const exists = checkEmailExists(email)
-
-		if (exists) {
-			router.push(`/reset-password?email=${encodeURIComponent(email)}`)
-		} else {
-			setError('No account found with this email')
+			if (exists) {
+				router.push(
+					`/reset-password?email=${encodeURIComponent(values.email)}`
+				)
+			} else {
+				setGlobalError('No account found with this email')
+			}
 		}
 	}
 
@@ -60,20 +65,20 @@ export default function ForgotPasswordPage() {
 								<Input
 									id='email'
 									type='email'
-									value={email}
-									onChange={e => setEmail(e.target.value)}
+									value={values.email}
+									onChange={e =>
+										handleChange('email', e.target.value)
+									}
 									placeholder='Enter your email'
-									className={cn(
-										'w-full py-5',
-										error ? 'border-red-500' : ''
-									)}
+									className='w-full py-5'
+									error={errors.email}
 								/>
-								{error && (
-									<p className='mt-1 text-body text-red-500'>
-										{error}
-									</p>
-								)}
 							</div>
+							{errors.global && (
+								<p className='mt-1 text-body text-red-500'>
+									{errors.global}
+								</p>
+							)}
 							<Button
 								type='submit'
 								className='w-full rounded-sm'

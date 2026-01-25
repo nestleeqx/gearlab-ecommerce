@@ -10,16 +10,6 @@ import { useOrderTotals } from '@/hooks/useOrderTotals'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-export interface ShippingFormData {
-	streetAddress: string
-	city: string
-	state: string
-	zipCode: string
-	country: string
-	email: string
-	fullName: string
-}
-
 export default function CheckoutPage() {
 	const { items, clearCart } = useCart()
 	const { addOrder } = useOrders()

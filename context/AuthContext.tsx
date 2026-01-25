@@ -8,6 +8,7 @@ interface AuthContextType extends iAuthState {
 	signup: (name: string, email: string, password: string) => boolean
 	logout: () => void
 	resetPassword: (email: string, newPassword: string) => boolean
+	updateAccount: (name: string, email: string) => boolean
 	checkEmailExists: (email: string) => boolean
 	isLoading: boolean
 }
@@ -101,6 +102,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		return false
 	}
 
+	const updateAccount = (name: string, email: string): boolean => {
+		if (!user) return false
+
+		const users = getUsers()
+		const userIndex = users.findIndex(u => u.id === user.id)
+
+		if (userIndex !== -1) {
+			const existingUserIndex = users.findIndex(
+				u => u.email === email && u.id !== user.id
+			)
+			if (existingUserIndex !== -1) {
+				return false
+			}
+
+			const updatedUser = { ...user, name, email }
+			users[userIndex] = updatedUser
+			saveUsers(users)
+
+			setUser(updatedUser)
+			localStorage.setItem('currentUser', JSON.stringify(updatedUser))
+
+			return true
+		}
+
+		return false
+	}
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -111,6 +139,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				signup,
 				logout,
 				resetPassword,
+				updateAccount,
 				checkEmailExists
 			}}
 		>

@@ -1,7 +1,6 @@
 'use client'
-import { ShippingFormData } from '@/app/(products)/checkout/page'
-import { cn } from '@/lib/utils'
-import { useState } from 'react'
+import { useZodValidation } from '@/hooks/useZodValidation'
+import { ShippingFormData, shippingSchema } from '@/lib/validationSchemas'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 
@@ -10,7 +9,7 @@ interface CheckoutFormProps {
 }
 
 export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
-	const [formData, setFormData] = useState<ShippingFormData>({
+	const initialFormData: ShippingFormData = {
 		streetAddress: '',
 		city: '',
 		state: '',
@@ -18,58 +17,17 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
 		country: '',
 		email: '',
 		fullName: ''
-	})
-
-	const [errors, setErrors] = useState<Partial<ShippingFormData>>({})
-
-	const validateForm = (): boolean => {
-		const newErrors: Partial<ShippingFormData> = {}
-
-		if (!formData.streetAddress.trim()) {
-			newErrors.streetAddress = 'Street address is required'
-		}
-
-		if (!formData.city.trim()) {
-			newErrors.city = 'City is required'
-		}
-
-		if (!formData.state.trim()) {
-			newErrors.state = 'State is required'
-		}
-
-		if (!formData.zipCode.trim()) {
-			newErrors.zipCode = 'Zip code is required'
-		}
-
-		if (!formData.country.trim()) {
-			newErrors.country = 'Country is required'
-		}
-
-		if (!formData.email.trim()) {
-			newErrors.email = 'Email is required'
-		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-			newErrors.email = 'Invalid email format'
-		}
-
-		if (!formData.fullName.trim()) {
-			newErrors.fullName = 'Full name is required'
-		}
-
-		setErrors(newErrors)
-		return Object.keys(newErrors).length === 0
 	}
+
+	const { values, errors, handleChange, validateForm } = useZodValidation(
+		shippingSchema,
+		initialFormData
+	)
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 		if (validateForm()) {
-			onSubmit(formData)
-		}
-	}
-
-	const handleChange = (field: keyof ShippingFormData, value: string) => {
-		setFormData(prev => ({ ...prev, [field]: value }))
-		if (errors[field]) {
-			setErrors(prev => ({ ...prev, [field]: undefined }))
+			onSubmit(values)
 		}
 	}
 
@@ -92,20 +50,13 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
 					<Input
 						id='streetAddress'
 						type='text'
-						value={formData.streetAddress}
+						value={values.streetAddress}
 						onChange={e =>
 							handleChange('streetAddress', e.target.value)
 						}
-						className={cn(
-							'w-full',
-							errors.streetAddress ? 'border-red-500' : ''
-						)}
+						className='w-full'
+						error={errors.streetAddress}
 					/>
-					{errors.streetAddress && (
-						<p className='mt-1 text-xs text-red-500'>
-							{errors.streetAddress}
-						</p>
-					)}
 				</div>
 				<div className='grid grid-cols-2 gap-4'>
 					<div>
@@ -118,18 +69,11 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
 						<Input
 							id='city'
 							type='text'
-							value={formData.city}
+							value={values.city}
 							onChange={e => handleChange('city', e.target.value)}
-							className={cn(
-								'w-full',
-								errors.city ? 'border-red-500' : ''
-							)}
+							className='w-full'
+							error={errors.city}
 						/>
-						{errors.city && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.city}
-							</p>
-						)}
 					</div>
 					<div>
 						<label
@@ -141,20 +85,13 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
 						<Input
 							id='state'
 							type='text'
-							value={formData.state}
+							value={values.state}
 							onChange={e =>
 								handleChange('state', e.target.value)
 							}
-							className={cn(
-								'w-full',
-								errors.state ? 'border-red-500' : ''
-							)}
+							className='w-full'
+							error={errors.state}
 						/>
-						{errors.state && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.state}
-							</p>
-						)}
 					</div>
 				</div>
 				<div className='grid grid-cols-2 gap-4'>
@@ -168,20 +105,13 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
 						<Input
 							id='zipCode'
 							type='text'
-							value={formData.zipCode}
+							value={values.zipCode}
 							onChange={e =>
 								handleChange('zipCode', e.target.value)
 							}
-							className={cn(
-								'w-full',
-								errors.zipCode ? 'border-red-500' : ''
-							)}
+							className='w-full'
+							error={errors.zipCode}
 						/>
-						{errors.zipCode && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.zipCode}
-							</p>
-						)}
 					</div>
 					<div>
 						<label
@@ -193,20 +123,13 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
 						<Input
 							id='country'
 							type='text'
-							value={formData.country}
+							value={values.country}
 							onChange={e =>
 								handleChange('country', e.target.value)
 							}
-							className={cn(
-								'w-full',
-								errors.country ? 'border-red-500' : ''
-							)}
+							className='w-full'
+							error={errors.country}
 						/>
-						{errors.country && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.country}
-							</p>
-						)}
 					</div>
 				</div>
 				<div className='grid grid-cols-2 gap-4 mt-13'>
@@ -220,20 +143,13 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
 						<Input
 							id='email'
 							type='email'
-							value={formData.email}
+							value={values.email}
 							onChange={e =>
 								handleChange('email', e.target.value)
 							}
-							className={cn(
-								'w-full',
-								errors.email ? 'border-red-500' : ''
-							)}
+							className='w-full'
+							error={errors.email}
 						/>
-						{errors.email && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.email}
-							</p>
-						)}
 					</div>
 					<div>
 						<label
@@ -245,20 +161,13 @@ export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
 						<Input
 							id='fullName'
 							type='text'
-							value={formData.fullName}
+							value={values.fullName}
 							onChange={e =>
 								handleChange('fullName', e.target.value)
 							}
-							className={cn(
-								'w-full',
-								errors.fullName ? 'border-red-500' : ''
-							)}
+							className='w-full'
+							error={errors.fullName}
 						/>
-						{errors.fullName && (
-							<p className='mt-1 text-xs text-red-500'>
-								{errors.fullName}
-							</p>
-						)}
 					</div>
 				</div>
 				<Button

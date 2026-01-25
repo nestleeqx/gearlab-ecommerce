@@ -6,23 +6,24 @@ import { Input } from '@/components/ui/Input/Input'
 import PageTitleWide from '@/components/ui/PageTitleWide/PageTitleWide'
 import Text from '@/components/ui/Text/Text'
 import { useAuth } from '@/context/AuthContext'
-import { cn } from '@/lib/utils'
+import { useZodValidation } from '@/hooks/useZodValidation'
+import {
+	ResetPasswordFormData,
+	resetPasswordSchema
+} from '@/lib/validationSchemas'
 import { MoveRight } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-export interface iResetPassword {
-	email: string
-	newPassword: string
-	confirmPassword: string
-	global?: string
+const initialValues: ResetPasswordFormData = {
+	email: '',
+	newPassword: '',
+	confirmPassword: ''
 }
 
 export default function ResetPasswordPage() {
-	const [newPassword, setNewPassword] = useState('')
-	const [confirmPassword, setConfirmPassword] = useState('')
-	const [errors, setErrors] = useState<Partial<iResetPassword>>({})
-	const [email, setEmail] = useState('')
+	const { values, errors, handleChange, validateForm, setGlobalError } =
+		useZodValidation(resetPasswordSchema, initialValues)
 	const [isSuccess, setIsSuccess] = useState<boolean>(false)
 	const { resetPassword } = useAuth()
 	const router = useRouter()
@@ -31,53 +32,22 @@ export default function ResetPasswordPage() {
 	useEffect(() => {
 		const emailParam = searchParams.get('email')
 		if (emailParam) {
-			setEmail(emailParam)
+			handleChange('email', emailParam)
 		} else {
 			router.push('/forgot-password')
 		}
-	}, [searchParams, router])
-
-	const validateForm = (): boolean => {
-		const newErrors: Partial<iResetPassword> = {}
-
-		if (!email.trim()) {
-			newErrors.email = 'Email is required'
-		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-			newErrors.email = 'Invalid email format'
-		}
-
-		if (!newPassword.trim()) {
-			newErrors.newPassword = 'Password is required'
-		} else if (newPassword.length < 6) {
-			newErrors.newPassword =
-				'Password must be at least 6 characters long'
-		}
-
-		if (!confirmPassword.trim()) {
-			newErrors.confirmPassword = 'Password is required'
-		} else if (newPassword.length < 6) {
-			newErrors.confirmPassword =
-				'Password must be at least 6 characters long'
-		}
-
-		if (newPassword !== confirmPassword) {
-			newErrors.global = 'Passwords do not match'
-		}
-
-		setErrors(newErrors)
-		return Object.keys(newErrors).length === 0
-	}
+	}, [searchParams, router, handleChange])
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 
 		if (validateForm()) {
-			const success = resetPassword(email, newPassword)
+			const success = resetPassword(values.email, values.newPassword)
 
 			if (success) {
 				setIsSuccess(true)
 			} else {
-				setErrors({ global: 'Failed to reset password' })
+				setGlobalError('Failed to reset password')
 			}
 		}
 	}
@@ -128,25 +98,18 @@ export default function ResetPasswordPage() {
 								<Input
 									id='newPassword'
 									type='password'
-									value={newPassword}
+									value={values.newPassword}
 									onChange={e =>
-										setNewPassword(e.target.value)
+										handleChange(
+											'newPassword',
+											e.target.value
+										)
 									}
 									placeholder='Enter new password'
-									className={cn(
-										'w-full py-5',
-										errors.newPassword
-											? 'border-red-500'
-											: ''
-									)}
+									className='w-full py-5'
+									error={errors.newPassword}
 								/>
-								{errors.newPassword && (
-									<p className='mt-1 text-body text-red-500'>
-										{errors.newPassword}
-									</p>
-								)}
 							</div>
-
 							<div>
 								<label
 									htmlFor='confirmPassword'
@@ -157,23 +120,17 @@ export default function ResetPasswordPage() {
 								<Input
 									id='confirmPassword'
 									type='password'
-									value={confirmPassword}
+									value={values.confirmPassword}
 									onChange={e =>
-										setConfirmPassword(e.target.value)
+										handleChange(
+											'confirmPassword',
+											e.target.value
+										)
 									}
 									placeholder='Confirm your password'
-									className={cn(
-										'w-full py-5',
-										errors.confirmPassword
-											? 'border-red-500'
-											: ''
-									)}
+									className='w-full py-5'
+									error={errors.confirmPassword}
 								/>
-								{errors.confirmPassword && (
-									<p className='mt-1 text-body text-red-500'>
-										{errors.confirmPassword}
-									</p>
-								)}
 							</div>
 							{errors.global && (
 								<p className='mt-1 text-body text-red-500'>
