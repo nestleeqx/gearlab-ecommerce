@@ -79,7 +79,7 @@ export default function PriceFilter() {
 	return (
 		<>
 			<Text className='text-neutral-900 font-medium'>Price</Text>
-			<div className='mt-4 w-full max-w-md'>
+			<div className='w-full max-w-md'>
 				<Field>
 					<FieldDescription className='flex justify-between items-center gap-4'>
 						<Input
@@ -102,7 +102,6 @@ export default function PriceFilter() {
 							readOnly
 						/>
 					</FieldDescription>
-
 					<Slider
 						value={localValues}
 						onValueChange={handleSliderValueChange}
@@ -110,11 +109,10 @@ export default function PriceFilter() {
 						max={100}
 						min={0}
 						step={1}
-						className='mt-6 w-full'
+						className='mt-4 w-full'
 						aria-label='Price Range'
 					/>
-
-					<div className='flex justify-between mt-2'>
+					<div className='flex justify-between mt-1'>
 						<span className='text-sm text-gray-500'>$0</span>
 						<span className='text-sm text-gray-500'>$100</span>
 					</div>

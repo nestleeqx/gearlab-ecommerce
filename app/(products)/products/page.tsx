@@ -2,9 +2,24 @@ import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import CatalogSection from '@/components/sections/CatalogSection/CatalogSection'
 import AppliedFilters from '@/components/ui/AppliedFilters/AppliedFilters'
 import BreadcrumbComponent from '@/components/ui/BreadcrumbComponent/BreadcrumbComponent'
-import ProductsFilter from '@/components/ui/ProductsFilter/ProductsFilter'
+import FiltersSidebar from '@/components/ui/FilterSidebar/FiltersSidebar'
+import { getCategories, getColors, getSizes } from '@/services/filters'
 
-export default function Products() {
+export const revalidate = 60
+
+export default async function Products() {
+	const [categories, colors, sizes] = await Promise.all([
+		getCategories(),
+		getColors(),
+		getSizes()
+	])
+
+	const availableFilters = {
+		availableCategories: categories.map(c => c.name),
+		availableColors: colors.map(c => c.color),
+		availableSizes: sizes.map(s => s.size)
+	}
+
 	return (
 		<div>
 			<div className='bg-neutral-light-100 py-6'>
@@ -13,7 +28,7 @@ export default function Products() {
 				</PageContainer>
 			</div>
 			<PageContainer className='mt-8 flex justify-between'>
-				<ProductsFilter />
+				<FiltersSidebar availableFilters={availableFilters} />
 				<div className='ml-8 w-full'>
 					<AppliedFilters />
 					<CatalogSection />

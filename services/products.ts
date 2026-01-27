@@ -26,10 +26,6 @@ export interface iProduct {
 
 const products: iProduct[] = productData.products as iProduct[]
 
-export async function getAllProducts(limit = 4): Promise<iProduct[]> {
-	return products.slice(0, limit)
-}
-
 export async function getProductsBySlug(
 	slug: string
 ): Promise<iProduct | null> {
