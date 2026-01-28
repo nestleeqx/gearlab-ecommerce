@@ -1,7 +1,7 @@
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { centsToDollars, dollarsToCents } from '@/lib/utils'
 import { ChangeEvent, useEffect, useState } from 'react'
-import { Field, FieldDescription } from '../Field/Field'
+import { Field } from '../Field/Field'
 import { Input } from '../Input/Input'
 import { Slider } from '../Slider/Slider'
 import Text from '../Text/Text'
@@ -81,7 +81,7 @@ export default function PriceFilter() {
 			<Text className='text-neutral-900 font-medium'>Price</Text>
 			<div className='w-full max-w-md'>
 				<Field>
-					<FieldDescription className='flex justify-between items-center gap-4'>
+					<div className='flex justify-between items-center gap-4'>
 						<Input
 							type='text'
 							placeholder='0'
@@ -101,7 +101,7 @@ export default function PriceFilter() {
 							className='w-20'
 							readOnly
 						/>
-					</FieldDescription>
+					</div>
 					<Slider
 						value={localValues}
 						onValueChange={handleSliderValueChange}

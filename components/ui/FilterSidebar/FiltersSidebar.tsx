@@ -59,7 +59,7 @@ export default function FiltersSidebar({
 	}
 
 	return (
-		<div className='border border-neutral-100 rounded-md w-64 h-max p-6 space-y-8'>
+		<div className='border border-neutral-100 rounded-md w-64 min-w-64 h-max p-6 space-y-8'>
 			{filterConfig.map(section => (
 				<FilterSection
 					key={section.key}

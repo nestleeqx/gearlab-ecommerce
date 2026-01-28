@@ -1,9 +1,9 @@
 'use client'
 import CatalogEmptyState from '@/components/ui/CatalogEmptyState/CatalogEmptyState'
-import CatalogSkeleton from '@/components/ui/CatalogSkeleton/CatalogSkeleton'
 import PaginationComponent from '@/components/ui/PaginationComponent/PaginationComponent'
 import ProductsGrid from '@/components/ui/ProductsGrid/ProductsGrid'
 import ResultsHeader from '@/components/ui/ResultHeader/ResultHeader'
+import CatalogSkeleton from '@/components/ui/Skeletons/CatalogSkeleton/CatalogSkeleton'
 import { SortOption } from '@/data/sort.data'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import {

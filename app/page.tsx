@@ -3,11 +3,14 @@ import BannerSection from '@/components/sections/BannerSection/BannerSection'
 import BestSellingSection from '@/components/sections/BestSellingSection/BestSellingSection'
 import CategoriesCTA from '@/components/sections/CategoriesCTA/CategoriesCTA'
 import ProductList from '@/components/sections/ProductList/ProductList'
+import BestSellersSkeleton from '@/components/ui/Skeletons/BestSellersSkeleton/BestSellersSkeleton'
+import ProductListSkeleton from '@/components/ui/Skeletons/ProductListSkeleton/ProductListSkeleton'
 import {
 	getBestSellers,
 	getNewProducts,
 	getPopularProducts
 } from '@/services/products'
+import { Suspense } from 'react'
 
 export const revalidate = 60
 
@@ -22,12 +25,16 @@ export default async function Home() {
 		<div>
 			<BannerSection />
 			<AdvantagesSection />
-			<BestSellingSection bestSellers={bestSellers} />
+			<Suspense fallback={<BestSellersSkeleton />}>
+				<BestSellingSection bestSellers={bestSellers} />
+			</Suspense>
 			<CategoriesCTA />
-			<ProductList
-				popularProducts={popularProducts}
-				newProducts={newProducts}
-			/>
+			<Suspense fallback={<ProductListSkeleton />}>
+				<ProductList
+					popularProducts={popularProducts}
+					newProducts={newProducts}
+				/>
+			</Suspense>
 		</div>
 	)
 }

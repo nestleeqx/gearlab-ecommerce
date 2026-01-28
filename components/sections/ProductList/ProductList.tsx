@@ -1,6 +1,7 @@
 'use client'
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import ProductCard from '@/components/ui/ProductCard/ProductCard'
+import ProductListSkeleton from '@/components/ui/Skeletons/ProductListSkeleton/ProductListSkeleton'
 import {
 	Tabs,
 	TabsContent,
@@ -18,6 +19,9 @@ export default function ProductList({
 	popularProducts,
 	newProducts
 }: ProductListProps) {
+	if (!popularProducts || !newProducts || newProducts.length === 0) {
+		return <ProductListSkeleton />
+	}
 
 	return (
 		<PageContainer className='mt-38'>
@@ -33,22 +37,21 @@ export default function ProductList({
 					value='featured'
 					className='flex mt-12 space-x-10'
 				>
-					{popularProducts &&
-						popularProducts.map(elem => {
-							return (
-								<ProductCard
-									key={elem.id}
-									id={elem.id}
-									slug={elem.slug}
-									images={elem.images}
-									title={elem.title}
-									status={elem.status}
-									price={elem.price}
-									color={elem.color[0]}
-									size={elem.size}
-								/>
-							)
-						})}
+					{popularProducts.map(elem => {
+						return (
+							<ProductCard
+								key={elem.id}
+								id={elem.id}
+								slug={elem.slug}
+								images={elem.images}
+								title={elem.title}
+								status={elem.status}
+								price={elem.price}
+								color={elem.color[0]}
+								size={elem.size}
+							/>
+						)
+					})}
 				</TabsContent>
 				<TabsContent
 					value='latest'
