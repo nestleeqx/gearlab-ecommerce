@@ -8,9 +8,10 @@ import {
 	PaginationNext,
 	PaginationPrevious
 } from '@/components/ui/Pagination/Pagination'
+import * as React from 'react'
 import { useMemo } from 'react'
 
-interface PaginationComponentProps {
+interface iPaginationComponent {
 	currentPage: number
 	totalItems: number
 	itemsPerPage: number
@@ -22,7 +23,7 @@ export default function PaginationComponent({
 	totalItems,
 	itemsPerPage,
 	onPageChange
-}: PaginationComponentProps) {
+}: iPaginationComponent) {
 	const totalPages = Math.ceil(totalItems / itemsPerPage)
 
 	const pageNumbers = useMemo(() => {
@@ -62,8 +63,9 @@ export default function PaginationComponent({
 			<PaginationContent className='border rounded-sm'>
 				<PaginationItem>
 					<PaginationPrevious
+						size='default'
 						href='#'
-						onClick={e => {
+						onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
 							e.preventDefault()
 							if (currentPage > 1) onPageChange(currentPage - 1)
 						}}
@@ -91,7 +93,9 @@ export default function PaginationComponent({
 								href='#'
 								isActive={currentPage === pageNum}
 								size='icon-sm'
-								onClick={e => {
+								onClick={(
+									e: React.MouseEvent<HTMLAnchorElement>
+								) => {
 									e.preventDefault()
 									onPageChange(pageNum)
 								}}
@@ -104,8 +108,9 @@ export default function PaginationComponent({
 
 				<PaginationItem>
 					<PaginationNext
+						size='default'
 						href='#'
-						onClick={e => {
+						onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
 							e.preventDefault()
 							if (currentPage < totalPages)
 								onPageChange(currentPage + 1)

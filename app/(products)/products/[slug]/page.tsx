@@ -16,10 +16,32 @@ import {
 	iProduct
 } from '@/services/products'
 import { getReviewsByProductId } from '@/services/reviews'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 export const revalidate = 60
+
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+	const { slug } = await params
+	const product = await getProductsBySlug(slug)
+
+	if (!product) {
+		return {
+			title: 'Product Not Found - GearLab',
+			description: 'The product you are looking for does not exist.'
+		}
+	}
+
+	return {
+		title: `${product.title} - GearLab`,
+		description: product.description.substring(0, 160)
+	}
+}
 
 export async function generateStaticParams() {
 	const slugs = getAllProductSlugs()

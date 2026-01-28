@@ -17,7 +17,6 @@ interface CartContextType extends CartState {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-	// Ленивая инициализация - выполнится только один раз
 	const [items, setItems] = useState<CartItem[]>(() => {
 		if (typeof window !== 'undefined') {
 			const savedCart = localStorage.getItem('cart')
@@ -33,7 +32,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 		return []
 	})
 
-	// Синхронизация с localStorage при изменении items
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			localStorage.setItem('cart', JSON.stringify(items))
@@ -57,7 +55,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 			)
 
 			if (existingItemIndex > -1) {
-				// Товар уже есть - увеличиваем количество
 				const updatedItems = [...prevItems]
 				updatedItems[existingItemIndex] = {
 					...updatedItems[existingItemIndex],
@@ -67,7 +64,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 				}
 				return updatedItems
 			} else {
-				// Новый товар - добавляем в корзину
 				return [...prevItems, { ...newItem }]
 			}
 		})

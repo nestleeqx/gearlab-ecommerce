@@ -37,7 +37,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		return false
 	})
 
-	// Загрузка завершена сразу (нет асинхронной загрузки из localStorage)
 	const [isLoading] = useState(false)
 
 	const getUsers = (): iUser[] => {

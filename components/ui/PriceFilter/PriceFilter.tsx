@@ -24,7 +24,9 @@ export default function PriceFilter() {
 
 	useEffect(() => {
 		if (!isSliderDragging) {
-			setLocalValues([currentMin, currentMax])
+			setTimeout(() => {
+				setLocalValues([currentMin, currentMax])
+			}, 0)
 		}
 	}, [currentMin, currentMax, isSliderDragging])
 

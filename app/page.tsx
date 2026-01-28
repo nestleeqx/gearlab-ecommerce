@@ -10,7 +10,13 @@ import {
 	getNewProducts,
 	getPopularProducts
 } from '@/services/products'
+import { Metadata } from 'next'
 import { Suspense } from 'react'
+
+export const metadata: Metadata = {
+	title: 'GearLab - Home',
+	description: 'Your one-stop shop for the best gear.'
+}
 
 export const revalidate = 60
 

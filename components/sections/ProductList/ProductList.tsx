@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/Tabs/Tabs'
 import { iProduct } from '@/services/products'
 
-interface ProductListProps {
+interface iProductList {
 	popularProducts: iProduct[] | null
 	newProducts: iProduct[]
 }
@@ -18,7 +18,7 @@ interface ProductListProps {
 export default function ProductList({
 	popularProducts,
 	newProducts
-}: ProductListProps) {
+}: iProductList) {
 	if (!popularProducts || !newProducts || newProducts.length === 0) {
 		return <ProductListSkeleton />
 	}

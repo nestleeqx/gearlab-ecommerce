@@ -15,17 +15,17 @@ export const supportLinks: iLink[] = [
 	{
 		id: 'faq',
 		label: 'FAQ',
-		url: '/faq'
+		url: '#'
 	},
 	{
 		id: 'term-of-use',
 		label: 'Terms of use',
-		url: '/term-of-use'
+		url: '#'
 	},
 	{
 		id: 'privacy-policy',
 		label: 'Privacy Policy',
-		url: '/privacy-policy'
+		url: '#'
 	}
 ]
 
@@ -33,17 +33,17 @@ export const companyLinks: iLink[] = [
 	{
 		id: 'about-us',
 		label: 'About us',
-		url: '/about-us'
+		url: '#'
 	},
 	{
 		id: 'contact',
 		label: 'Contact',
-		url: '/contact'
+		url: '#'
 	},
 	{
 		id: 'careers',
 		label: 'Careers',
-		url: '/careers'
+		url: '#'
 	}
 ]
 

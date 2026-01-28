@@ -1,4 +1,4 @@
-import { sortOptions } from '@/data/sort.data'
+import { SortOption, sortOptions } from '@/data/sort.data'
 import {
 	Select,
 	SelectContent,
@@ -10,8 +10,8 @@ import {
 } from '../Select/Select'
 
 interface iSortSelect {
-	sortBy: string
-	handleSortChange: (value: string) => void
+	sortBy: SortOption
+	handleSortChange: (value: SortOption) => void
 }
 
 export default function SortSelect({ sortBy, handleSortChange }: iSortSelect) {

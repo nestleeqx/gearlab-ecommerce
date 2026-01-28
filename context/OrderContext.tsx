@@ -11,7 +11,6 @@ interface OrderContextType {
 const OrderContext = createContext<OrderContextType | undefined>(undefined)
 
 export function OrderProvider({ children }: { children: React.ReactNode }) {
-	// Ленивая инициализация
 	const [orders, setOrders] = useState<Order[]>(() => {
 		if (typeof window !== 'undefined') {
 			const currentUser = localStorage.getItem('currentUser')
@@ -34,7 +33,6 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
 
 	const { user } = useAuth()
 
-	// Сохранение при изменении
 	useEffect(() => {
 		if (user && orders.length > 0) {
 			localStorage.setItem(`orders_${user.id}`, JSON.stringify(orders))

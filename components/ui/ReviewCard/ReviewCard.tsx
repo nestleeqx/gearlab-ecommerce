@@ -1,11 +1,11 @@
 import { formatReviewDate, getInitials, iReview } from '@/services/reviews'
 import { Star } from 'lucide-react'
 
-interface ReviewCardProps {
+interface iReviewCard {
 	review: iReview
 }
 
-export default function ReviewCard({ review }: ReviewCardProps) {
+export default function ReviewCard({ review }: iReviewCard) {
 	const initials = getInitials(review.author)
 	const formattedDate = formatReviewDate(review.createdAt)
 

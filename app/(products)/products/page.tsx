@@ -4,6 +4,12 @@ import AppliedFilters from '@/components/ui/AppliedFilters/AppliedFilters'
 import BreadcrumbComponent from '@/components/ui/BreadcrumbComponent/BreadcrumbComponent'
 import FiltersSidebar from '@/components/ui/FilterSidebar/FiltersSidebar'
 import { getCategories, getColors, getSizes } from '@/services/filters'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Products - GearLab',
+	description: 'Browse our collection of products.'
+}
 
 export const revalidate = 60
 

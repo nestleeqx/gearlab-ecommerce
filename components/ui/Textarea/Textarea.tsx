@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils'
 import * as React from 'react'
 
-interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface iTextarea extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
 	error?: string
 }
 
-function Textarea({ className, error, ...props }: TextareaProps) {
+function Textarea({ className, error, ...props }: iTextarea) {
 	return (
 		<div className='space-y-2'>
 			<textarea

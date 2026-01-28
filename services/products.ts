@@ -1,7 +1,7 @@
 import productData from '@/data/products.json'
 import { SortOption } from '@/data/sort.data'
 
-type Size = 'M' | 'L' | 'XL' | 'XXL'
+export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
 
 export interface iProduct {
 	id: number
@@ -42,6 +42,9 @@ export function getAllProductSlugs(): string[] {
 export async function getProductsBySlug(
 	slug: string
 ): Promise<iProduct | null> {
+	if (!slug || typeof slug !== 'string') {
+		return null
+	}
 	const normalizedSlug = slug.trim().toLowerCase()
 
 	console.log(slug)
@@ -123,7 +126,7 @@ export interface FilteredProductsResult {
 export async function getFilteredProducts(filters?: {
 	category?: string[]
 	color?: string[]
-	size?: string[]
+	size?: Size[]
 	minPrice?: number
 	maxPrice?: number
 	page?: number
@@ -203,16 +206,16 @@ export function sortProducts(
 	}
 }
 
-export function getSizeOptions(): Array<string> {
-	const availableSize: string[] = []
+export function getSizeOptions(): Size[] {
+	const availableSizes = new Set<Size>()
 
 	products.forEach(product => {
 		product.size.forEach(size => {
-			availableSize.push(size)
+			availableSizes.add(size)
 		})
 	})
 
-	const sizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+	const sizeOrder: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
-	return sizeOrder.filter(size => availableSize.includes(size))
+	return sizeOrder.filter(size => availableSizes.has(size))
 }

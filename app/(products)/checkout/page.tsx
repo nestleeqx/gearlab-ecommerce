@@ -10,6 +10,7 @@ import { useOrderTotals } from '@/hooks/useOrderTotals'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+
 export default function CheckoutPage() {
 	const { items, clearCart, itemCount } = useCart()
 	const { addOrder } = useOrders()

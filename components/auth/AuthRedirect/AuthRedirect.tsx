@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-interface AuthRedirectProps {
+interface iAuthRedirect {
 	children: React.ReactNode
 	redirectTo?: string
 }
@@ -11,7 +11,7 @@ interface AuthRedirectProps {
 export default function AuthRedirect({
 	children,
 	redirectTo = '/'
-}: AuthRedirectProps) {
+}: iAuthRedirect) {
 	const { isAuthenticated, isLoading } = useAuth()
 	const router = useRouter()
 

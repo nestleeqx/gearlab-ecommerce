@@ -4,8 +4,15 @@ import { cn } from '@/lib/utils'
 import { Heart, Key, LogOut, ShoppingCart, User } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import React from 'react'
 
-const menuItems = [
+interface MenuItem {
+	href: string
+	label: string
+	icon: React.ElementType
+}
+
+const menuItems: MenuItem[] = [
 	{ href: '/profile/orders', label: 'Orders', icon: ShoppingCart },
 	{ href: '/profile/wishlist', label: 'Wishlist', icon: Heart },
 	{ href: '/profile/password', label: 'Password', icon: Key },

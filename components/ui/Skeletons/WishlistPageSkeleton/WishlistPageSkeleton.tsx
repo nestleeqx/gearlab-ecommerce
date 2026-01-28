@@ -1,9 +1,10 @@
+import { Skeleton } from '../Skeleton/Skeleton'
 import WishlistCardSkeleton from '../WishlistCardSkeleton/WishlistCardSkeleton'
 
 export default function WishlistPageSkeleton() {
 	return (
 		<div>
-			<div className='mb-8 h-8 w-32 rounded bg-neutral-100 animate-pulse' />
+			<Skeleton className='mb-8 h-8 w-32 rounded' />
 
 			<div className='space-y-6'>
 				{Array.from({ length: 3 }).map((_, index) => (

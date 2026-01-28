@@ -23,7 +23,6 @@ const WishlistContext = createContext<WishlistContextType | undefined>(
 )
 
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
-	// Ленивая инициализация
 	const [items, setItems] = useState<WishlistItem[]>(() => {
 		if (typeof window !== 'undefined') {
 			const currentUser = localStorage.getItem('currentUser')
@@ -46,7 +45,6 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
 
 	const { user } = useAuth()
 
-	// Сохранение при изменении
 	useEffect(() => {
 		if (user && items.length > 0) {
 			localStorage.setItem(`wishlist_${user.id}`, JSON.stringify(items))

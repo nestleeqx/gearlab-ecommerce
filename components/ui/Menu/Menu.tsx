@@ -65,7 +65,7 @@ export default function Menu({ categories = [] }: IMenu) {
 			</li>
 			<li>
 				<Link
-					href='/about'
+					href='#'
 					className='text-body text-neutral-500 font-medium hover:text-neutral-300'
 				>
 					About
@@ -73,7 +73,7 @@ export default function Menu({ categories = [] }: IMenu) {
 			</li>
 			<li>
 				<Link
-					href='/contacts'
+					href='#'
 					className='text-body text-neutral-500 font-medium hover:text-neutral-300'
 				>
 					Contact

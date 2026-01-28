@@ -1,11 +1,10 @@
-// components/ui/FilterSection/FilterSection.tsx
 'use client'
 
 import { Button } from '@/components/ui/Button/Button'
 import { Checkbox } from '@/components/ui/Checkbox/Checkbox'
 import { cn } from '@/lib/utils'
 
-interface FilterSectionProps {
+interface iFilterSection {
 	title: string
 	options: Array<{ label: string; value: string }>
 	selected: string[]
@@ -19,7 +18,7 @@ export default function FilterSection({
 	selected,
 	type,
 	onChange
-}: FilterSectionProps) {
+}: iFilterSection) {
 	const handleToggle = (value: string) => {
 		const newValues = selected.includes(value)
 			? selected.filter(v => v !== value)

@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/Select/Select'
 import { ReviewSortOption, reviewSortOptions } from '@/data/sort.data'
 
-interface ReviewSortSelectProps {
+interface iReviewSortSelect {
 	sortBy: ReviewSortOption
 	onSortChange: (value: ReviewSortOption) => void
 }
@@ -15,7 +15,7 @@ interface ReviewSortSelectProps {
 export default function ReviewSortSelect({
 	sortBy,
 	onSortChange
-}: ReviewSortSelectProps) {
+}: iReviewSortSelect) {
 	return (
 		<Select
 			value={sortBy}

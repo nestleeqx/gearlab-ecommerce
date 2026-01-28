@@ -4,24 +4,24 @@ import BestSellersSkeleton from '@/components/ui/Skeletons/BestSellersSkeleton/B
 import Title from '@/components/ui/Title/Title'
 import { iProduct } from '@/services/products'
 
-interface BestSellingSectionProps {
+interface iBestSellingSection {
 	bestSellers: iProduct[]
 }
 
 export default function BestSellingSection({
 	bestSellers
-}: BestSellingSectionProps) {
+}: iBestSellingSection) {
 	if (!bestSellers || bestSellers.length === 0) {
 		return <BestSellersSkeleton />
 	}
 
 	return (
-		<PageContainer className='mt-42'>
+		<PageContainer className='mt-38'>
 			<div className='text-center'>
 				<p className='text-label text-neutral-300'>SHOP NOW</p>
 				<Title>Best Selling</Title>
 			</div>
-			<div className='flex justify-center items-center mt-20 space-x-10'>
+			<div className='mt-20 flex space-x-10 justify-center'>
 				{bestSellers.map(elem => {
 					return (
 						<ProductCard

@@ -1,6 +1,10 @@
 import { Badge } from '@/components/ui/Badge/Badge'
 
-export default function ProductStatus({ status }: { status: boolean }) {
+interface iProductStatus {
+	status: boolean
+}
+
+export default function ProductStatus({ status }: iProductStatus) {
 	return (
 		<Badge
 			variant='outline'

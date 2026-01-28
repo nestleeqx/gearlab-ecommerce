@@ -1,10 +1,9 @@
-// app/products/components/ResultsHeader.tsx
 'use client'
 
-import { SortOption } from '@/data/sort.data'
 import SortSelect from '@/components/ui/SortSelect/SortSelect'
+import { SortOption } from '@/data/sort.data'
 
-interface ResultsHeaderProps {
+interface iResultsHeader {
 	showingFrom: number
 	showingTo: number
 	total: number
@@ -18,7 +17,7 @@ export default function ResultsHeader({
 	total,
 	sortBy,
 	onSortChange
-}: ResultsHeaderProps) {
+}: iResultsHeader) {
 	return (
 		<div className='flex justify-between items-center mb-6'>
 			<div>
@@ -28,7 +27,7 @@ export default function ResultsHeader({
 			</div>
 			<SortSelect
 				sortBy={sortBy}
-				handleSortChange={value => onSortChange(value as SortOption)}
+				handleSortChange={onSortChange}
 			/>
 		</div>
 	)

@@ -21,10 +21,8 @@ export const useZodValidation = <T extends object>(
 		Partial<Record<keyof T, string>> & { global?: string }
 	>({})
 
-	// Используем ref для хранения актуальных initialValues
 	const initialValuesRef = useRef<T>(initialValues)
 
-	// Обновляем ref при изменении initialValues (только вне рендера)
 	useEffect(() => {
 		initialValuesRef.current = initialValues
 	}, [initialValues])
@@ -32,7 +30,6 @@ export const useZodValidation = <T extends object>(
 	const handleChange = useCallback(
 		(name: keyof T, value: string) => {
 			setValues(prev => ({ ...prev, [name]: value }))
-			// Clear error for the field being edited
 			if (name in errors && errors[name]) {
 				setErrors(prev => ({ ...prev, [name]: undefined }))
 			}
@@ -43,7 +40,6 @@ export const useZodValidation = <T extends object>(
 	const handleNumberChange = useCallback(
 		(name: keyof T, value: number) => {
 			setValues(prev => ({ ...prev, [name]: value }))
-			// Clear error for the field being edited
 			if (name in errors && errors[name]) {
 				setErrors(prev => ({ ...prev, [name]: undefined }))
 			}

@@ -1,10 +1,10 @@
-// app/products/components/ProductsGrid.tsx
 'use client'
 
 import ProductCard from '@/components/ui/ProductCard/ProductCard'
+import { Skeleton } from '@/components/ui/Skeletons/Skeleton/Skeleton'
 import { iProduct } from '@/services/products'
 
-interface ProductsGridProps {
+interface iProductsGrid {
 	products: iProduct[]
 	loading?: boolean
 }
@@ -12,14 +12,14 @@ interface ProductsGridProps {
 export default function ProductsGrid({
 	products,
 	loading = false
-}: ProductsGridProps) {
+}: iProductsGrid) {
 	if (loading) {
 		return (
-			<div className='grid grid-cols-4 gap-6'>
+			<div className='grid grid-cols-4 gap-4'>
 				{Array.from({ length: 8 }).map((_, index) => (
-					<div
+					<Skeleton
 						key={index}
-						className='h-80 bg-neutral-100 animate-pulse rounded'
+						className='h-80'
 					/>
 				))}
 			</div>
@@ -40,7 +40,7 @@ export default function ProductsGrid({
 	}
 
 	return (
-		<div className='grid grid-cols-4 gap-6'>
+		<div className='grid grid-cols-4 gap-4'>
 			{products.map(product => (
 				<ProductCard
 					key={product.id}

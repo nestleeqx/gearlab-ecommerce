@@ -16,7 +16,6 @@ export interface ISize {
 }
 
 export async function getCategories(): Promise<ICategory[]> {
-	// Подсчитываем количество товаров в каждой категории
 	const categoryCounts: Record<string, number> = {}
 
 	productsData.products.forEach(product => {
@@ -38,7 +37,6 @@ export async function getColors(): Promise<IColor[]> {
 		colorCounts[color] = (colorCounts[color] || 0) + 1
 	})
 
-	// Возвращаем цвета с количеством
 	return Object.entries(colorCounts).map(([color, count]) => ({
 		color,
 		count

@@ -20,7 +20,7 @@ export default function ProductListSkeleton() {
 				</TabsList>
 				<TabsContent
 					value='featured'
-					className='flex mt-12 space-x-10'
+					className='w-full flex justify-center mt-12 space-x-10'
 				>
 					{Array.from({ length: 4 }).map((_, index) => (
 						<ProductCardSkeleton key={index} />
@@ -28,7 +28,7 @@ export default function ProductListSkeleton() {
 				</TabsContent>
 				<TabsContent
 					value='latest'
-					className='flex mt-12 space-x-10'
+					className='w-full flex justify-center mt-12 space-x-10'
 				>
 					{Array.from({ length: 4 }).map((_, index) => (
 						<ProductCardSkeleton key={`latest-${index}`} />

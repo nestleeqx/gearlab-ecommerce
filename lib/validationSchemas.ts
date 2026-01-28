@@ -1,9 +1,7 @@
 import { z } from 'zod'
 
-// Регулярное выражение для валидации email
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-// Схема для логина
 export const loginSchema = z.object({
 	email: z
 		.string()
@@ -12,7 +10,6 @@ export const loginSchema = z.object({
 	password: z.string().min(1, 'Password is required')
 })
 
-// Схема для регистрации
 export const signupSchema = z.object({
 	name: z
 		.string()
@@ -28,7 +25,6 @@ export const signupSchema = z.object({
 		.min(6, 'Password must be at least 6 characters long')
 })
 
-// Схема для сброса пароля
 export const resetPasswordSchema = z
 	.object({
 		email: z
@@ -46,7 +42,6 @@ export const resetPasswordSchema = z
 		path: []
 	})
 
-// Схема для изменения пароля в профиле
 export const changePasswordSchema = z
 	.object({
 		newPassword: z
@@ -60,7 +55,6 @@ export const changePasswordSchema = z
 		path: []
 	})
 
-// Схема для данных аккаунта
 export const accountDataSchema = z.object({
 	name: z
 		.string()
@@ -72,7 +66,6 @@ export const accountDataSchema = z.object({
 		.regex(emailRegex, 'Invalid email format')
 })
 
-// Схема для данных доставки (checkout)
 export const shippingSchema = z.object({
 	streetAddress: z.string().min(1, 'Street address is required'),
 	city: z.string().min(1, 'City is required'),
@@ -86,7 +79,6 @@ export const shippingSchema = z.object({
 	fullName: z.string().min(1, 'Full name is required')
 })
 
-// Схема для отзыва (review)
 export const reviewSchema = z.object({
 	email: z
 		.string()

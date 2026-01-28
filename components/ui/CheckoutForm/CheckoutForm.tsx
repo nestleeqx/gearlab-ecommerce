@@ -4,11 +4,11 @@ import { ShippingFormData, shippingSchema } from '@/lib/validationSchemas'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 
-interface CheckoutFormProps {
+interface iCheckoutForm {
 	onSubmit: (data: ShippingFormData) => void
 }
 
-export default function CheckoutForm({ onSubmit }: CheckoutFormProps) {
+export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 	const initialFormData: ShippingFormData = {
 		streetAddress: '',
 		city: '',

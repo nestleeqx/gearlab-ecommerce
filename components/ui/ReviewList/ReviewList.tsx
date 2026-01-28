@@ -8,7 +8,7 @@ import ReviewCard from '../ReviewCard/ReviewCard'
 import ReviewDialog from '../ReviewDialog/ReviewDialog'
 import ReviewSortSelect from '../ReviewSortSelect/ReviewSortSelect'
 
-interface ReviewsListProps {
+interface iReviewsList {
 	reviews: iReview[]
 	productId: number
 	initialDisplay?: number
@@ -20,7 +20,7 @@ export default function ReviewsList({
 	productId,
 	initialDisplay = 3,
 	className
-}: ReviewsListProps) {
+}: iReviewsList) {
 	const [reviews, setReviews] = useState<iReview[]>(initialReviews)
 	const [displayCount, setDisplayCount] = useState(initialDisplay)
 	const [sortBy, setSortBy] = useState<ReviewSortOption>('newest')

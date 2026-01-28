@@ -3,6 +3,7 @@ import { useAuth } from '@/context/AuthContext'
 import { useWishlist } from '@/context/WishListContext'
 import { useAddToCart } from '@/hooks/useAddToCart'
 import { cn, formatPrice } from '@/lib/utils'
+import { Size } from '@/services/products'
 import { CirclePlus, Heart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -18,7 +19,7 @@ interface iProductCard {
 	status: boolean
 	price: number
 	color: string
-	size: string[]
+	size: Size[]
 }
 
 interface iProductClass extends iProductCard {

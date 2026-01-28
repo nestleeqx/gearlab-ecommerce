@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '../Button/Button'
 
-interface OrderSummaryProps {
+interface iOrderSummary {
 	items: CartItem[]
 	subtotal: number
 	shipping: number
@@ -20,7 +20,7 @@ export default function OrderSummary({
 	totalQuantity,
 	tax,
 	total
-}: OrderSummaryProps) {
+}: iOrderSummary) {
 	return (
 		<div>
 			<div className='flex items-center justify-between mb-8'>

@@ -7,7 +7,11 @@ const manropeSans = Manrope({
 	subsets: ['latin']
 })
 
-export default function Logo({ position = 'h' }: { position?: 'h' | 'f' }) {
+interface iLogo {
+	position?: 'h' | 'f'
+}
+
+export default function Logo({ position = 'h' }: iLogo) {
 	return (
 		<Link
 			href='/'

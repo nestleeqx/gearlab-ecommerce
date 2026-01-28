@@ -1,11 +1,12 @@
 'use client'
+import { Size } from '@/services/products'
 import { useState } from 'react'
 import SizeSelector from '../SizeSelector/SizeSelector'
 
 interface iProductSizeSelector {
-	availableSizes: string[]
-	onSizeSelect?: (color: string) => void
-	defaultSize?: string
+	availableSizes: Size[]
+	onSizeSelect?: (size: Size) => void
+	defaultSize?: Size
 }
 
 export default function ProductSizeSelector({
@@ -13,11 +14,11 @@ export default function ProductSizeSelector({
 	onSizeSelect,
 	defaultSize
 }: iProductSizeSelector) {
-	const [selectedSize, setSelectedSize] = useState<string[]>(
+	const [selectedSize, setSelectedSize] = useState<Size[]>(
 		defaultSize ? [defaultSize] : []
 	)
 
-	const handleSizeChange = (sizes: string[]) => {
+	const handleSizeChange = (sizes: Size[]) => {
 		setSelectedSize(sizes)
 		if (onSizeSelect && sizes.length > 0) {
 			onSizeSelect(sizes[0])
