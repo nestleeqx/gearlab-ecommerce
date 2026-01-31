@@ -5,7 +5,7 @@ import { Input } from '../Input/Input'
 import { Slider } from '../Slider/Slider'
 import Text from '../Text/Text'
 
-const MAX_PRICE = 15000
+const MAX_PRICE = 14000
 
 export default function PriceFilter() {
 	const { params, setPriceRange } = useQueryParams()

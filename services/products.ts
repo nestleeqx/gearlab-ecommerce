@@ -161,13 +161,15 @@ export async function getFilteredProducts(filters?: {
 	}
 
 	if (filters.minPrice !== undefined) {
-		const minPriceDollars = filters.minPrice / 100
-		filtered = filtered.filter(product => product.price >= minPriceDollars)
+		filtered = filtered.filter(
+			product => product.price >= filters.minPrice!
+		)
 	}
 
 	if (filters.maxPrice !== undefined) {
-		const maxPriceDollars = filters.maxPrice / 100
-		filtered = filtered.filter(product => product.price <= maxPriceDollars)
+		filtered = filtered.filter(
+			product => product.price <= filters.maxPrice!
+		)
 	}
 
 	const total = filtered.length

@@ -83,7 +83,8 @@ export default function Menu({
 			</li>
 			<li>
 				<DropdownMenu
-					onOpenChange={() => setIsOpen(!isOpen)}
+					open={isOpen}
+					onOpenChange={setIsOpen}
 					modal={false}
 				>
 					<DropdownMenuTrigger className='cursor-pointer'>
@@ -99,10 +100,14 @@ export default function Menu({
 					<DropdownMenuContent>
 						{categories.map(elem => {
 							return (
-								<DropdownMenuItem key={elem.name}>
+								<DropdownMenuItem
+									key={elem.name}
+									asChild
+								>
 									<Link
 										href={`/products?category=${elem.name.toLowerCase()}`}
 										className='text-sm lg:text-body text-neutral-500 font-medium hover:text-neutral-300'
+										onClick={() => setIsOpen(false)}
 									>
 										{capitalizeFirstLetter(elem.name)}
 									</Link>

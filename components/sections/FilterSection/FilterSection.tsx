@@ -45,7 +45,7 @@ export default function FilterSection({
 									onCheckedChange={() =>
 										handleToggle(option.value)
 									}
-									className='w-4 h-4'
+									className='w-4 h-4 cursor-pointer'
 								/>
 								<span
 									className={cn(
