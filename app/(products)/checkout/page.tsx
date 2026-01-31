@@ -10,7 +10,6 @@ import { useOrderTotals } from '@/hooks/useOrderTotals'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-
 export default function CheckoutPage() {
 	const { items, clearCart, itemCount } = useCart()
 	const { addOrder } = useOrders()
@@ -50,8 +49,8 @@ export default function CheckoutPage() {
 	return (
 		<>
 			<PageTitleWide title='Cart' />
-			<PageContainer className='mt-25'>
-				<div className='grid grid-cols-1 gap-12 lg:grid-cols-2'>
+			<PageContainer className='mt-16 lg:mt-25'>
+				<div className='grid grid-cols-1 gap-8 lg:gap-12 lg:grid-cols-2'>
 					<CheckoutForm onSubmit={handlePlaceOrder} />
 					<OrderSummary
 						items={items}

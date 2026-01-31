@@ -29,12 +29,16 @@ export default function SimilarProducts({ product }: { product: iProduct }) {
 	}
 
 	return (
-		<PageContainer className='mt-42'>
+		<PageContainer className='mt-16 lg:mt-42'>
 			<div className='text-center'>
-				<Title>You might also like</Title>
-				<p className='text-label text-neutral-300'>SIMILAR PRODUCTS</p>
+				<Title className='text-2xl lg:text-3xl'>
+					You might also like
+				</Title>
+				<p className='text-label text-neutral-300 mt-2'>
+					SIMILAR PRODUCTS
+				</p>
 			</div>
-			<div className='flex justify-center items-center mt-20 space-x-10'>
+			<div className='hidden lg:flex justify-center items-center mt-12 lg:mt-20 gap-6 xl:gap-10'>
 				{similarProducts.map(elem => {
 					return (
 						<ProductCard
@@ -50,6 +54,29 @@ export default function SimilarProducts({ product }: { product: iProduct }) {
 						/>
 					)
 				})}
+			</div>
+			<div className='lg:hidden mt-8 overflow-x-auto scrollbar-hide -mx-4'>
+				<div className='flex gap-4 px-4 pb-4'>
+					{similarProducts.map(elem => {
+						return (
+							<div
+								key={elem.id}
+								className='shrink-0 w-64 sm:w-70'
+							>
+								<ProductCard
+									id={elem.id}
+									slug={elem.slug}
+									images={elem.images}
+									title={elem.title}
+									status={elem.status}
+									price={elem.price}
+									color={elem.color[0]}
+									size={elem.size}
+								/>
+							</div>
+						)
+					})}
+				</div>
 			</div>
 		</PageContainer>
 	)

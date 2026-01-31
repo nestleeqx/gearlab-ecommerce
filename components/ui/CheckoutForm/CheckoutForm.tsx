@@ -32,18 +32,18 @@ export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 	}
 
 	return (
-		<div className='border-r border-neutral-100'>
-			<h1 className='mb-8 text-heading-h3 font-semibold text-neutral-900'>
+		<div className='border-r-0 xl:border-r xl:border-neutral-100'>
+			<h1 className='mb-4 lg:mb-8 text-xl lg:text-heading-h3 font-semibold text-neutral-900'>
 				Shipping Address
 			</h1>
 			<form
 				onSubmit={handleSubmit}
-				className='space-y-6 mt-16 max-w-115'
+				className='space-y-4 lg:space-y-6 mt-8 lg:mt-16 max-w-none lg:max-w-115'
 			>
 				<div>
 					<label
 						htmlFor='streetAddress'
-						className='mb-2 block text-body font-medium text-neutral-600'
+						className='mb-1.5 lg:mb-2 block text-sm lg:text-body font-medium text-neutral-600'
 					>
 						Street Address
 					</label>
@@ -58,11 +58,11 @@ export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 						error={errors.streetAddress}
 					/>
 				</div>
-				<div className='grid grid-cols-2 gap-4'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4'>
 					<div>
 						<label
 							htmlFor='city'
-							className='mb-2 block text-body font-medium text-neutral-600'
+							className='mb-1.5 lg:mb-2 block text-sm lg:text-body font-medium text-neutral-600'
 						>
 							City
 						</label>
@@ -78,7 +78,7 @@ export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 					<div>
 						<label
 							htmlFor='state'
-							className='mb-2 block text-body font-medium text-neutral-600'
+							className='mb-1.5 lg:mb-2 block text-sm lg:text-body font-medium text-neutral-600'
 						>
 							State
 						</label>
@@ -94,11 +94,11 @@ export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 						/>
 					</div>
 				</div>
-				<div className='grid grid-cols-2 gap-4'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4'>
 					<div>
 						<label
 							htmlFor='zipCode'
-							className='mb-2 block text-body font-medium text-neutral-600'
+							className='mb-1.5 lg:mb-2 block text-sm lg:text-body font-medium text-neutral-600'
 						>
 							Zip Code
 						</label>
@@ -116,7 +116,7 @@ export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 					<div>
 						<label
 							htmlFor='country'
-							className='mb-2 block text-body font-medium text-neutral-600'
+							className='mb-1.5 lg:mb-2 block text-sm lg:text-body font-medium text-neutral-600'
 						>
 							Country
 						</label>
@@ -132,11 +132,11 @@ export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 						/>
 					</div>
 				</div>
-				<div className='grid grid-cols-2 gap-4 mt-13'>
+				<div className='grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4 mt-8 lg:mt-13'>
 					<div>
 						<label
 							htmlFor='email'
-							className='mb-2 block text-body font-medium text-neutral-600'
+							className='mb-1.5 lg:mb-2 block text-sm lg:text-body font-medium text-neutral-600'
 						>
 							Email
 						</label>
@@ -154,7 +154,7 @@ export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 					<div>
 						<label
 							htmlFor='fullName'
-							className='mb-2 block text-body font-medium text-neutral-600'
+							className='mb-1.5 lg:mb-2 block text-sm lg:text-body font-medium text-neutral-600'
 						>
 							Full name
 						</label>
@@ -172,7 +172,7 @@ export default function CheckoutForm({ onSubmit }: iCheckoutForm) {
 				</div>
 				<Button
 					type='submit'
-					className='mt-8 w-full rounded-sm'
+					className='mt-6 lg:mt-8 w-full rounded-sm'
 					size='lg'
 				>
 					Place Order

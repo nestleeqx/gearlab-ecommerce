@@ -12,9 +12,15 @@ import { useState } from 'react'
 
 interface IMenu {
 	categories: ICategory[]
+	isMobile?: boolean
+	onLinkClick?: () => void
 }
 
-export default function Menu({ categories = [] }: IMenu) {
+export default function Menu({
+	categories = [],
+	isMobile = false,
+	onLinkClick
+}: IMenu) {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	const capitalizeFirstLetter = (str: string) => {
@@ -22,12 +28,55 @@ export default function Menu({ categories = [] }: IMenu) {
 		return str.charAt(0).toUpperCase() + str.slice(1)
 	}
 
+	if (isMobile) {
+		return (
+			<nav className='flex flex-col space-y-4 py-4'>
+				<Link
+					href='/'
+					className='text-base lg:text-body text-neutral-900 font-medium hover:text-neutral-500'
+					onClick={onLinkClick}
+				>
+					Home
+				</Link>
+				<div className='flex flex-col space-y-2'>
+					<span className='text-base lg:text-body text-neutral-900 font-medium'>
+						Categories
+					</span>
+					{categories.map(elem => (
+						<Link
+							key={elem.name}
+							href={`/products?category=${elem.name.toLowerCase()}`}
+							className='ml-4 text-sm lg:text-body text-neutral-600 hover:text-neutral-400'
+							onClick={onLinkClick}
+						>
+							{capitalizeFirstLetter(elem.name)}
+						</Link>
+					))}
+				</div>
+				<Link
+					href='#'
+					className='text-base lg:text-body text-neutral-900 font-medium hover:text-neutral-500'
+					onClick={onLinkClick}
+				>
+					About
+				</Link>
+				<Link
+					href='#'
+					className='text-base lg:text-body text-neutral-900 font-medium hover:text-neutral-500'
+					onClick={onLinkClick}
+				>
+					Contact
+				</Link>
+			</nav>
+		)
+	}
+
 	return (
 		<ul className='flex space-x-8 items-baseline'>
 			<li>
 				<Link
 					href='/'
-					className='text-body text-neutral-500 font-medium hover:text-neutral-300'
+					className='text-sm lg:text-body text-neutral-500 font-medium hover:text-neutral-300'
 				>
 					Home
 				</Link>
@@ -38,7 +87,7 @@ export default function Menu({ categories = [] }: IMenu) {
 					modal={false}
 				>
 					<DropdownMenuTrigger className='cursor-pointer'>
-						<span className='flex text-body text-neutral-500 font-medium hover:text-neutral-300'>
+						<span className='flex text-sm lg:text-body text-neutral-500 font-medium hover:text-neutral-300'>
 							Categories{' '}
 							{isOpen ? (
 								<ChevronUp className='w-5 ml-1' />
@@ -53,7 +102,7 @@ export default function Menu({ categories = [] }: IMenu) {
 								<DropdownMenuItem key={elem.name}>
 									<Link
 										href={`/products?category=${elem.name.toLowerCase()}`}
-										className='text-body text-neutral-500 font-medium hover:text-neutral-300'
+										className='text-sm lg:text-body text-neutral-500 font-medium hover:text-neutral-300'
 									>
 										{capitalizeFirstLetter(elem.name)}
 									</Link>
@@ -66,7 +115,7 @@ export default function Menu({ categories = [] }: IMenu) {
 			<li>
 				<Link
 					href='#'
-					className='text-body text-neutral-500 font-medium hover:text-neutral-300'
+					className='text-sm lg:text-body text-neutral-500 font-medium hover:text-neutral-300'
 				>
 					About
 				</Link>
@@ -74,7 +123,7 @@ export default function Menu({ categories = [] }: IMenu) {
 			<li>
 				<Link
 					href='#'
-					className='text-body text-neutral-500 font-medium hover:text-neutral-300'
+					className='text-sm lg:text-body text-neutral-500 font-medium hover:text-neutral-300'
 				>
 					Contact
 				</Link>

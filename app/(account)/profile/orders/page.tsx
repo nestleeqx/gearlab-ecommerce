@@ -20,20 +20,23 @@ export default function OrdersPage() {
 
 	if (orders.length === 0) {
 		return (
-			<div className='flex min-h-[60vh] flex-col items-center justify-center'>
-				<div className='mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-neutral-100'>
+			<div className='flex min-h-[40vh] lg:min-h-[60vh] flex-col items-center justify-center px-4'>
+				<div className='mb-4 lg:mb-6 flex h-20 w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-neutral-100'>
 					<Package
-						className='h-12 w-12 text-neutral-500'
+						className='h-10 w-10 lg:h-12 lg:w-12 text-neutral-500'
 						strokeWidth={1.5}
 					/>
 				</div>
-				<p className='mb-6 text-neutral-500'>
+				<p className='mb-4 lg:mb-6 text-sm lg:text-base text-neutral-500 text-center'>
 					Your order history is waiting to be filled.
 				</p>
-				<Link href='/products'>
+				<Link
+					href='/products'
+					className='w-full sm:w-auto'
+				>
 					<Button
 						size='lg'
-						className='rounded-sm'
+						className='rounded-sm w-full sm:w-auto'
 					>
 						Start Shopping
 						<span>→</span>
@@ -45,16 +48,16 @@ export default function OrdersPage() {
 
 	return (
 		<div>
-			<h5 className='mb-8 text-heading-h4 font-semibold text-neutral-900'>
+			<h5 className='mb-4 lg:mb-8 text-lg lg:text-heading-h4 font-semibold text-neutral-900'>
 				Orders
 			</h5>
-			<div className='space-y-6'>
+			<div className='space-y-4 lg:space-y-6'>
 				{orders.map(order => (
 					<div
 						key={order.id}
-						className='flex items-center gap-6 rounded-lg border border-neutral-light-100 p-6'
+						className='flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 rounded-lg border border-neutral-light-100 p-4 lg:p-6'
 					>
-						<div className='relative h-20 w-20 shrink-0 overflow-hidden rounded-md bg-neutral-100'>
+						<div className='relative h-16 w-16 lg:h-20 lg:w-20 shrink-0 overflow-hidden rounded-md bg-neutral-100'>
 							<Image
 								src={order.productImage}
 								alt={order.productTitle}
@@ -63,17 +66,19 @@ export default function OrdersPage() {
 								className='object-cover'
 							/>
 						</div>
-						<div className='flex-1'>
-							<h3 className='font-medium text-neutral-900'>
+						<div className='flex-1 min-w-0'>
+							<h3 className='font-medium text-sm lg:text-base text-neutral-900 truncate'>
 								{order.productTitle}
 							</h3>
-							<p className='mt-1 text-body text-neutral-500'>
+							<p className='mt-1 text-xs lg:text-body text-neutral-500'>
 								Ordered On: {formatDate(order.orderedAt)}
 							</p>
-							<div className='mt-2 space-y-1 text-body'>
-								<div className='flex items-center gap-2 text-neutral-600'>
+							<div className='mt-2 space-y-1 text-xs lg:text-body'>
+								<div className='flex flex-wrap items-center gap-1 lg:gap-2 text-neutral-600'>
 									<span>Quantity: {order.quantity}</span>
-									<span className='text-neutral-300'>•</span>
+									<span className='text-neutral-300 hidden sm:inline'>
+										•
+									</span>
 									<span>{formatPrice(order.price)} each</span>
 								</div>
 								<div className='flex items-center gap-2'>
@@ -88,10 +93,10 @@ export default function OrdersPage() {
 								</p>
 							</div>
 						</div>
-						<div className='flex items-center gap-4'>
+						<div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 lg:gap-4 mt-2 sm:mt-0'>
 							<span
 								className={cn(
-									'rounded-full px-4 py-2 text-body font-medium capitalize',
+									'rounded-full px-3 py-1.5 lg:px-4 lg:py-2 text-xs lg:text-body font-medium capitalize',
 									order.status === 'processing' &&
 										'bg-yellow-100 text-yellow-800',
 									order.status === 'completed' &&
@@ -102,8 +107,16 @@ export default function OrdersPage() {
 							>
 								{order.status}
 							</span>
-							<Link href={`/products/${order.productSlug}`}>
-								<Button variant='outline'>View item</Button>
+							<Link
+								href={`/products/${order.productSlug}`}
+								className='w-full sm:w-auto'
+							>
+								<Button
+									variant='outline'
+									className='w-full sm:w-auto text-sm'
+								>
+									View item
+								</Button>
 							</Link>
 						</div>
 					</div>

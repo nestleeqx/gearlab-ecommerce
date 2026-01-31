@@ -20,7 +20,10 @@ export default function SortSelect({ sortBy, handleSortChange }: iSortSelect) {
 			value={sortBy}
 			onValueChange={handleSortChange}
 		>
-			<SelectTrigger size='sm'>
+			<SelectTrigger
+				size='sm'
+				className='w-full sm:w-auto'
+			>
 				<SelectValue placeholder='SORT BY' />
 			</SelectTrigger>
 			<SelectContent position='popper'>

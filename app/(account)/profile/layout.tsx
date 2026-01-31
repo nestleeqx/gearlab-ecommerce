@@ -26,9 +26,11 @@ export default function ProfileLayout({
 		return (
 			<>
 				<PageTitleWide title='My Account' />
-				<PageContainer className='mt-16'>
-					<div className='flex min-h-[60vh] items-center justify-center'>
-						<div className='text-neutral-600'>Loading...</div>
+				<PageContainer className='mt-8 lg:mt-16'>
+					<div className='flex min-h-[40vh] lg:min-h-[60vh] items-center justify-center'>
+						<div className='text-sm lg:text-base text-neutral-600'>
+							Loading...
+						</div>
 					</div>
 				</PageContainer>
 			</>
@@ -42,10 +44,10 @@ export default function ProfileLayout({
 	return (
 		<>
 			<PageTitleWide title='My Account' />
-			<PageContainer className='mt-16'>
-				<div className='flex gap-8'>
+			<PageContainer className='mt-8 lg:mt-16'>
+				<div className='flex flex-col lg:flex-row gap-6 lg:gap-8'>
 					<ProfileSidebar />
-					<main className='flex-1'>{children}</main>
+					<main className='flex-1 min-w-0'>{children}</main>
 				</div>
 			</PageContainer>
 		</>

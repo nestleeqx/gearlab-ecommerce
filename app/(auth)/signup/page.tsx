@@ -43,13 +43,13 @@ export default function SignUpPage() {
 	return (
 		<AuthRedirect redirectTo='/'>
 			<PageTitleWide title='Sign Up' />
-			<PageContainer>
-				<div className='flex mt-32 items-center justify-center py-12'>
-					<div className='w-full max-w-80 space-y-8'>
+			<PageContainer className='px-4'>
+				<div className='flex mt-16 md:mt-24 lg:mt-32 items-center justify-center py-8 md:py-12'>
+					<div className='w-full max-w-sm md:max-w-80 space-y-6 md:space-y-8'>
 						<div>
 							<button
 								onClick={handleGoogleSignup}
-								className='flex w-full items-center justify-center gap-3 rounded-md border border-neutral-200 bg-neutral-light-900 px-4 py-3 text-body font-medium text-neutral-500 hover:bg-neutral-50 cursor-pointer'
+								className='flex w-full items-center justify-center gap-3 rounded-md border border-neutral-200 bg-neutral-light-900 px-4 py-3 text-sm md:text-body font-medium text-neutral-500 hover:bg-neutral-50 cursor-pointer'
 							>
 								<svg
 									className='h-5 w-5'
@@ -79,7 +79,7 @@ export default function SignUpPage() {
 							<div className='absolute inset-0 flex items-center'>
 								<div className='w-full border-t border-neutral-100' />
 							</div>
-							<div className='relative flex justify-center text-body'>
+							<div className='relative flex justify-center text-sm md:text-body'>
 								<span className='bg-white px-2 text-neutral-500'>
 									OR
 								</span>
@@ -87,12 +87,12 @@ export default function SignUpPage() {
 						</div>
 						<form
 							onSubmit={handleSubmit}
-							className='space-y-5'
+							className='space-y-4 md:space-y-5'
 						>
 							<div>
 								<label
 									htmlFor='name'
-									className='mb-2 block text-body font-medium text-neutral-600'
+									className='mb-1.5 md:mb-2 block text-sm md:text-body font-medium text-neutral-600'
 								>
 									Name
 								</label>
@@ -104,14 +104,14 @@ export default function SignUpPage() {
 										handleChange('name', e.target.value)
 									}
 									placeholder='Enter your name'
-									className='w-full py-5'
+									className='w-full py-4 md:py-5'
 									error={errors.name}
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor='email'
-									className='mb-2 block text-body font-medium text-neutral-600'
+									className='mb-1.5 md:mb-2 block text-sm md:text-body font-medium text-neutral-600'
 								>
 									Email
 								</label>
@@ -123,14 +123,14 @@ export default function SignUpPage() {
 										handleChange('email', e.target.value)
 									}
 									placeholder='Enter your email'
-									className='w-full py-5'
+									className='w-full py-4 md:py-5'
 									error={errors.email}
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor='password'
-									className='mb-2 block text-body font-medium text-neutral-600'
+									className='mb-1.5 md:mb-2 block text-sm md:text-body font-medium text-neutral-600'
 								>
 									Password
 								</label>
@@ -142,16 +142,16 @@ export default function SignUpPage() {
 										handleChange('password', e.target.value)
 									}
 									placeholder='Enter your password'
-									className='w-full py-5'
+									className='w-full py-4 md:py-5'
 									error={errors.password}
 								/>
 							</div>
 							{errors.global && (
-								<p className='mt-1 text-body text-red-500'>
+								<p className='mt-1 text-sm md:text-body text-red-500'>
 									{errors.global}
 								</p>
 							)}
-							<p className='text-body text-neutral-500'>
+							<p className='text-xs md:text-body text-neutral-500'>
 								By Creating An Account You Agree With Our Terms
 								Of Service, Privacy Policy.
 							</p>
@@ -162,7 +162,7 @@ export default function SignUpPage() {
 							>
 								Create account
 							</Button>
-							<p className='text-center text-body text-neutral-500'>
+							<p className='text-center text-sm md:text-body text-neutral-500'>
 								Already have an account?{' '}
 								<Link
 									href='/login'

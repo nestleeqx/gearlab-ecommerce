@@ -65,23 +65,27 @@ export default async function ProductPage({
 	const reviews = await getReviewsByProductId(product.id)
 
 	return (
-		<PageContainer className='relative after:absolute after:w-full after:h-px after:top-0 after:bg-neutral-light-100'>
+		<PageContainer className='relative border-t border-neutral-light-100'>
 			<div className='pt-5'>
 				<BreadcrumbComponent />
-				<div className='mt-4 flex items-start gap-20'>
-					<div className='w-150 shrink-0'>
+				<div className='mt-4 flex flex-col lg:flex-row items-start gap-6 lg:gap-10 xl:gap-20'>
+					<div className='w-full lg:w-150 shrink-0'>
 						<Carousel
 							opts={{
 								loop: true,
 								align: 'center'
 							}}
+							className='w-full'
 						>
 							<div className='relative'>
 								<CarouselContent>
 									{product &&
 										product.images.map((image, index) => {
 											return (
-												<CarouselItem key={index}>
+												<CarouselItem
+													key={index}
+													className='pl-0 basis-full'
+												>
 													<div className='relative aspect-square overflow-hidden rounded-md bg-neutral-50'>
 														<Image
 															src={image}
@@ -99,8 +103,8 @@ export default async function ProductPage({
 											)
 										})}
 								</CarouselContent>
-								<CarouselPrevious />
-								<CarouselNext />
+								<CarouselPrevious className='left-2 lg:left-4' />
+								<CarouselNext className='right-2 lg:right-4' />
 								<CarouselDots className='absolute bottom-4 left-1/2 -translate-x-1/2' />
 							</div>
 						</Carousel>

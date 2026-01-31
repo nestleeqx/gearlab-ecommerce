@@ -25,32 +25,32 @@ export default function ProductDescription({
 	return (
 		<Tabs
 			defaultValue='details'
-			className='mt-44 flex flex-row gap-12'
+			className='mt-16 lg:mt-44 flex flex-col lg:flex-row gap-6 lg:gap-12'
 		>
-			<TabsList className='flex h-fit w-48 flex-col items-stretch gap-0'>
+			<TabsList className='flex h-fit w-full lg:w-48 flex-row lg:flex-col items-stretch gap-0 bg-transparent lg:bg-white p-0 lg:p-1'>
 				<TabsTrigger
 					value='details'
-					className='flex items-center justify-start gap-2 px-5 py-3 text-left data-[state=active]:bg-neutral-50'
+					className='flex items-center justify-center lg:justify-start gap-2 px-4 lg:px-5 py-3 text-left data-[state=active]:bg-neutral-50 flex-1 lg:flex-none'
 				>
 					<Ellipsis className='h-5 w-5' />
 					<span className='text-body font-medium'>Details</span>
 				</TabsTrigger>
 				<TabsTrigger
 					value='reviews'
-					className='flex items-center justify-start gap-2 mt-1 px-5 py-3 text-left data-[state=active]:bg-neutral-50'
+					className='flex items-center justify-center lg:justify-start gap-2 lg:mt-1 px-4 lg:px-5 py-3 text-left data-[state=active]:bg-neutral-50 flex-1 lg:flex-none'
 				>
 					<Star className='h-5 w-5' />
 					<span className='text-body font-medium'>Reviews</span>
 				</TabsTrigger>
 			</TabsList>
-			<div className='flex-1'>
+			<div className='flex-1 min-w-0'>
 				<TabsContent
 					value='details'
-					className='m-0 max-w-3xl space-y-6'
+					className='m-0 max-w-none lg:max-w-3xl space-y-4 lg:space-y-6'
 				>
 					<h5 className='font-semibold text-neutral-900'>Detail</h5>
 					<Text color={600}>{details}</Text>
-					<ul className='flex flex-col gap-1.5 mt-12'>
+					<ul className='flex flex-col gap-2 lg:gap-1.5 mt-8 lg:mt-12'>
 						{features.map((elem, index) => {
 							return (
 								<li

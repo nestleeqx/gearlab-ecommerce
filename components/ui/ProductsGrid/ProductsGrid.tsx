@@ -15,11 +15,11 @@ export default function ProductsGrid({
 }: iProductsGrid) {
 	if (loading) {
 		return (
-			<div className='grid grid-cols-4 gap-4'>
+			<div className='grid gap-4 gap-y-7 sm:gap-y-0 sm:grid-cols-1 md:gap-y-4 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4'>
 				{Array.from({ length: 8 }).map((_, index) => (
 					<Skeleton
 						key={index}
-						className='h-80'
+						className='h-80 lg:h-96'
 					/>
 				))}
 			</div>
@@ -28,19 +28,21 @@ export default function ProductsGrid({
 
 	if (products.length === 0) {
 		return (
-			<div className='text-center py-12'>
-				<h3 className='text-lg font-medium text-neutral-900 mb-2'>
-					No products found
-				</h3>
-				<p className='text-neutral-600'>
-					Try adjusting your filters or search terms
-				</p>
+			<div className='w-full min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center'>
+				<div className='text-center'>
+					<h3 className='text-heading-h4 font-medium text-neutral-900 mb-2'>
+						No products found
+					</h3>
+					<p className='text-body text-neutral-600'>
+						Try adjusting your filters or search terms
+					</p>
+				</div>
 			</div>
 		)
 	}
 
 	return (
-		<div className='grid grid-cols-4 gap-4'>
+		<div className='grid gap-4 gap-y-7 sm:gap-y-0 sm:grid-cols-1 md:gap-y-4 md:grid-cols-3 lg:grid-cols-3 lg:gap-y-7 xl:grid-cols-4 justify-items-center'>
 			{products.map(product => (
 				<ProductCard
 					key={product.id}

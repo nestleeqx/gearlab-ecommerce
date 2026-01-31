@@ -139,15 +139,17 @@ export default function CatalogSection() {
 				sortBy={sortBy}
 				onSortChange={handleSortChange}
 			/>
-			<div className='mt-4'>
+			<div className='mt-6 lg:mt-4'>
 				<ProductsGrid products={sortedProducts} />
 			</div>
-			<PaginationComponent
-				currentPage={currentPage}
-				totalItems={productsData.total}
-				itemsPerPage={itemsPerPage}
-				onPageChange={handlePageChange}
-			/>
+			{sortedProducts.length > 0 && (
+				<PaginationComponent
+					currentPage={currentPage}
+					totalItems={productsData.total}
+					itemsPerPage={itemsPerPage}
+					onPageChange={handlePageChange}
+				/>
+			)}
 		</div>
 	)
 }

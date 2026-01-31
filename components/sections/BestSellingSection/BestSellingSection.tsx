@@ -34,7 +34,7 @@ export default function BestSellingSection({
 
 	return (
 		<div ref={sectionRef}>
-			<PageContainer className='mt-38'>
+			<PageContainer className='mt-16 lg:mt-38'>
 				<div
 					className={`text-center transition-all duration-700 ease-out ${
 						isVisible
@@ -42,10 +42,14 @@ export default function BestSellingSection({
 							: 'opacity-0 translate-y-4'
 					}`}
 				>
-					<p className='text-label text-neutral-300'>SHOP NOW</p>
-					<Title>Best Selling</Title>
+					<p className='text-xs md:text-sm lg:text-label text-neutral-300'>
+						SHOP NOW
+					</p>
+					<Title className='text-2xl md:text-3xl lg:text-3xl'>
+						Best Selling
+					</Title>
 				</div>
-				<div className='mt-20 flex space-x-10 justify-center'>
+				<div className='mt-12 lg:mt-20 hidden lg:flex space-x-10 justify-center'>
 					{bestSellers.map((elem, index) => {
 						return (
 							<div
@@ -74,6 +78,38 @@ export default function BestSellingSection({
 							</div>
 						)
 					})}
+				</div>
+				<div className='mt-8 lg:hidden overflow-x-auto scrollbar-hide -mx-4'>
+					<div className='flex gap-4 px-4 pb-8'>
+						{bestSellers.map((elem, index) => {
+							return (
+								<div
+									key={elem.id}
+									className={`shrink-0 w-70 transition-all duration-700 ease-out ${
+										isVisible
+											? 'opacity-100 translate-y-0'
+											: 'opacity-0 translate-y-8'
+									}`}
+									style={{
+										transitionDelay: isVisible
+											? `${index * 100}ms`
+											: '0ms'
+									}}
+								>
+									<ProductCard
+										id={elem.id}
+										slug={elem.slug}
+										images={elem.images}
+										title={elem.title}
+										status={elem.status}
+										price={elem.price}
+										color={elem.color[0]}
+										size={elem.size}
+									/>
+								</div>
+							)
+						})}
+					</div>
 				</div>
 			</PageContainer>
 		</div>

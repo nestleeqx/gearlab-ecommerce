@@ -7,10 +7,10 @@ import { Skeleton } from '../Skeleton/Skeleton'
 
 export default function ProductPageSkeleton() {
 	return (
-		<PageContainer className='relative after:absolute after:w-full after:h-px after:top-0 after:bg-neutral-light-100'>
+		<PageContainer className='relative border-t border-neutral-light-100'>
 			<div className='pt-5'>
-				<Skeleton className='h-4 w-64 rounded' />
-				<div className='mt-4 flex items-start gap-20'>
+				<Skeleton className='h-3.5 lg:h-4 w-48 lg:w-64 rounded' />
+				<div className='mt-4 lg:mt-6 flex flex-col lg:flex-row items-start gap-6 lg:gap-10 xl:gap-20'>
 					<ProductCarouselSkeleton />
 					<ProductDetailSkeleton />
 				</div>

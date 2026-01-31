@@ -60,9 +60,9 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 	}
 
 	return (
-		<div>
-			<Title>{product.title}</Title>
-			<div className='flex mt-3 gap-3 items-center'>
+		<div className='w-full lg:w-auto'>
+			<Title className='text-2xl lg:text-3xl'>{product.title}</Title>
+			<div className='flex flex-wrap mt-3 gap-2 lg:gap-3 items-center'>
 				<Badge variant='secondary'>
 					<Star className='fill-neutral-500' />{' '}
 					<span className='ml-1'>
@@ -71,10 +71,10 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 				</Badge>
 				<ProductStatus status={product.status} />
 			</div>
-			<h4 className='mt-6 text-lg text-neutral-900 font-semibold'>
+			<h4 className='mt-4 lg:mt-6 text-xl lg:text-lg text-neutral-900 font-semibold'>
 				{formatPrice(product.price)}
 			</h4>
-			<div className='mt-8'>
+			<div className='mt-6 lg:mt-8'>
 				<Text className='mb-2.5'>Available Colors</Text>
 				<ProductColorSelector
 					availableColors={product.color}
@@ -90,7 +90,7 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 					defaultSize={selectedSize}
 				/>
 			</div>
-			<div className='mt-8'>
+			<div className='mt-6 lg:mt-8'>
 				<Text className='mb-2.5'>Quantity</Text>
 				<QuantityInput
 					value={quantity}
@@ -99,11 +99,11 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 					onChange={setQuantity}
 				/>
 			</div>
-			<div className='mt-10'>
-				<div className='flex items-center space-x-4'>
+			<div className='mt-8 lg:mt-10'>
+				<div className='flex flex-col flex-wrap sm:flex-row items-stretch sm:items-center gap-3 sm:space-x-4 lg:max-w-67.5 xl:max-w-full'>
 					<Button
 						size='lg'
-						className='px-25 rounded-sm'
+						className='w-full h-12 sm:w-auto sm:px-25 rounded-sm'
 						onClick={onAddToCart}
 					>
 						Add to cart
@@ -112,6 +112,7 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 						<Button
 							variant='outline'
 							size='icon-lg'
+							className='w-full px-0 h-12 sm:w-auto sm:px-4 xl:w-12'
 							onClick={handleWishlistClick}
 							disabled={!isAuthenticated}
 							title={
@@ -124,16 +125,18 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 						>
 							<Heart
 								className={cn(
-									'size-5',
+									'size-5 transition-all duration-100',
 									inWishlist
-										? 'fill-red-500 stroke-red-500'
+										? 'fill-red-500 stroke-red-500 animate-heart-beat'
 										: 'stroke-neutral-500'
 								)}
 							/>
 						</Button>
 					)}
 				</div>
-				<Text className='mt-3'>— Free shipping on orders $100+</Text>
+				<Text className='mt-3 text-sm lg:text-base'>
+					— Free shipping on orders $100+
+				</Text>
 			</div>
 		</div>
 	)

@@ -41,29 +41,102 @@ export default function ProductList({
 
 	return (
 		<div ref={sectionRef}>
-			<PageContainer className='mt-38'>
-				<Tabs
-					defaultValue='featured'
-					className='items-center'
-				>
-					<TabsList
-						className={`transition-all duration-700 ease-out ${
-							isVisible
-								? 'opacity-100 translate-y-0'
-								: 'opacity-0 translate-y-4'
-						}`}
+			<PageContainer className='mt-16 lg:mt-38'>
+				<div className='flex flex-col items-center'>
+					<Tabs
+						defaultValue='featured'
+						className='w-full'
 					>
-						<TabsTrigger value='featured'>Featured</TabsTrigger>
-						<TabsTrigger value='latest'>Latest</TabsTrigger>
-					</TabsList>
+						<TabsList
+							className={`mx-auto transition-all duration-700 ease-out ${
+								isVisible
+									? 'opacity-100 translate-y-0'
+									: 'opacity-0 translate-y-4'
+							}`}
+						>
+							<TabsTrigger value='featured'>Featured</TabsTrigger>
+							<TabsTrigger value='latest'>Latest</TabsTrigger>
+						</TabsList>
 
-					<TabsContent
-						value='featured'
-						className='flex mt-12 space-x-10'
-					>
-						{popularProducts &&
-							popularProducts.map((elem, index) => {
-								return (
+						<TabsContent
+							value='featured'
+							className='mt-0'
+						>
+							<div className='hidden lg:flex mt-12 space-x-10 justify-center'>
+								{popularProducts &&
+									popularProducts.map((elem, index) => (
+										<div
+											key={elem.id}
+											className={`transition-all duration-700 ease-out ${
+												isVisible
+													? 'opacity-100 translate-y-0'
+													: 'opacity-0 translate-y-8'
+											}`}
+											style={{
+												transitionDelay: isVisible
+													? `${index * 100}ms`
+													: '0ms'
+											}}
+										>
+											<ProductCard
+												id={elem.id}
+												slug={elem.slug}
+												images={elem.images}
+												title={elem.title}
+												status={elem.status}
+												price={elem.price}
+												color={elem.color[0]}
+												size={elem.size}
+											/>
+										</div>
+									))}
+							</div>
+							<div className='lg:hidden mt-8'>
+								<div className='overflow-x-auto scrollbar-hide -mx-4'>
+									<div className='flex gap-4 px-4 pb-2'>
+										{popularProducts &&
+											popularProducts.map(
+												(elem, index) => (
+													<div
+														key={`mob-${elem.id}`}
+														className={`shrink-0 w-70 transition-all duration-700 ease-out ${
+															isVisible
+																? 'opacity-100 translate-y-0'
+																: 'opacity-0 translate-y-8'
+														}`}
+														style={{
+															transitionDelay:
+																isVisible
+																	? `${index * 100}ms`
+																	: '0ms'
+														}}
+													>
+														<ProductCard
+															id={elem.id}
+															slug={elem.slug}
+															images={elem.images}
+															title={elem.title}
+															status={elem.status}
+															price={elem.price}
+															color={
+																elem.color[0]
+															}
+															size={elem.size}
+														/>
+													</div>
+												)
+											)}
+									</div>
+								</div>
+							</div>
+						</TabsContent>
+
+						<TabsContent
+							value='latest'
+							className='mt-0'
+						>
+							<div className='hidden lg:flex mt-12 space-x-10 justify-center'>
+								{newProducts.map((elem, index) => (
 									<div
 										key={elem.id}
 										className={`transition-all duration-700 ease-out ${
@@ -88,44 +161,44 @@ export default function ProductList({
 											size={elem.size}
 										/>
 									</div>
-								)
-							})}
-					</TabsContent>
+								))}
+							</div>
 
-					<TabsContent
-						value='latest'
-						className='flex mt-12 space-x-10'
-					>
-						{newProducts.map((elem, index) => {
-							return (
-								<div
-									key={elem.id}
-									className={`transition-all duration-700 ease-out ${
-										isVisible
-											? 'opacity-100 translate-y-0'
-											: 'opacity-0 translate-y-8'
-									}`}
-									style={{
-										transitionDelay: isVisible
-											? `${index * 100}ms`
-											: '0ms'
-									}}
-								>
-									<ProductCard
-										id={elem.id}
-										slug={elem.slug}
-										images={elem.images}
-										title={elem.title}
-										status={elem.status}
-										price={elem.price}
-										color={elem.color[0]}
-										size={elem.size}
-									/>
+							<div className='lg:hidden mt-8'>
+								<div className='overflow-x-auto scrollbar-hide -mx-4'>
+									<div className='flex gap-4 px-4 pb-2'>
+										{newProducts.map((elem, index) => (
+											<div
+												key={`mob-${elem.id}`}
+												className={`shrink-0 w-70 transition-all duration-700 ease-out ${
+													isVisible
+														? 'opacity-100 translate-y-0'
+														: 'opacity-0 translate-y-8'
+												}`}
+												style={{
+													transitionDelay: isVisible
+														? `${index * 100}ms`
+														: '0ms'
+												}}
+											>
+												<ProductCard
+													id={elem.id}
+													slug={elem.slug}
+													images={elem.images}
+													title={elem.title}
+													status={elem.status}
+													price={elem.price}
+													color={elem.color[0]}
+													size={elem.size}
+												/>
+											</div>
+										))}
+									</div>
 								</div>
-							)
-						})}
-					</TabsContent>
-				</Tabs>
+							</div>
+						</TabsContent>
+					</Tabs>
+				</div>
 			</PageContainer>
 		</div>
 	)

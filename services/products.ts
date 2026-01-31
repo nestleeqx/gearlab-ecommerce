@@ -52,8 +52,6 @@ export async function getProductsBySlug(
 	}
 	const normalizedSlug = slug.trim().toLowerCase()
 
-	console.log(slug)
-
 	return (
 		products.find(p => p.slug.trim().toLowerCase() === normalizedSlug) ||
 		null

@@ -41,11 +41,11 @@ export default function ForgotPasswordPage() {
 	return (
 		<AuthRedirect redirectTo='/'>
 			<PageTitleWide title='Forgot Password' />
-			<PageContainer>
-				<div className='flex mt-32 items-center justify-center py-12'>
-					<div className='w-full max-w-80 space-y-8'>
+			<PageContainer className='px-4'>
+				<div className='flex mt-16 md:mt-24 lg:mt-32 items-center justify-center py-8 md:py-12'>
+					<div className='w-full max-w-sm md:max-w-80 space-y-6 md:space-y-8'>
 						<div>
-							<p className='text-body leading-relaxed text-neutral-600'>
+							<p className='text-sm md:text-body leading-relaxed text-neutral-600'>
 								Please enter the email address associated with
 								your account. We&apos;ll promptly send you a
 								link to reset your password.
@@ -53,12 +53,12 @@ export default function ForgotPasswordPage() {
 						</div>
 						<form
 							onSubmit={handleSubmit}
-							className='space-y-5'
+							className='space-y-4 md:space-y-5'
 						>
 							<div>
 								<label
 									htmlFor='email'
-									className='mb-2 block text-body font-medium text-neutral-600'
+									className='mb-1.5 md:mb-2 block text-sm md:text-body font-medium text-neutral-600'
 								>
 									Email
 								</label>
@@ -70,12 +70,12 @@ export default function ForgotPasswordPage() {
 										handleChange('email', e.target.value)
 									}
 									placeholder='Enter your email'
-									className='w-full py-5'
+									className='w-full py-4 md:py-5'
 									error={errors.email}
 								/>
 							</div>
 							{errors.global && (
-								<p className='mt-1 text-body text-red-500'>
+								<p className='mt-1 text-sm md:text-body text-red-500'>
 									{errors.global}
 								</p>
 							)}

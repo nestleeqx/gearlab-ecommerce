@@ -1,6 +1,7 @@
 'use client'
 
 import FilterSection from '@/components/sections/FilterSection/FilterSection'
+import MobileFilterDrawer from '@/components/ui/MobileFilterDrawer/MobileFilterDrawer'
 import PriceFilter from '@/components/ui/PriceFilter/PriceFilter'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { IColor } from '@/services/filters'
@@ -18,7 +19,7 @@ interface FilterConfigItem {
 	title: string
 	key: 'category' | 'color' | 'size'
 	type: 'checkbox' | 'color' | 'size'
-	options: { label: string; value: string }[]
+	options: { label: string; value: string; tailwindClass?: string }[]
 }
 
 export default function FiltersSidebar({ availableFilters }: iFiltersSidebar) {
@@ -67,18 +68,27 @@ export default function FiltersSidebar({ availableFilters }: iFiltersSidebar) {
 		}
 
 	return (
-		<div className='border border-neutral-100 rounded-md w-64 min-w-64 h-max p-6 space-y-8'>
-			{filterConfig.map(section => (
-				<FilterSection
-					key={section.key}
-					title={section.title}
-					options={section.options}
-					type={section.type}
-					selected={params[section.key] || []}
-					onChange={handleFilterChange(section.key)}
+		<>
+			<div className='lg:hidden'>
+				<MobileFilterDrawer
+					filterConfig={filterConfig}
+					params={params}
+					handleFilterChange={handleFilterChange}
 				/>
-			))}
-			<PriceFilter />
-		</div>
+			</div>
+			<div className='hidden lg:block border border-neutral-100 rounded-md w-64 min-w-64 h-max p-6 space-y-8'>
+				{filterConfig.map(section => (
+					<FilterSection
+						key={section.key}
+						title={section.title}
+						options={section.options}
+						type={section.type}
+						selected={params[section.key] || []}
+						onChange={handleFilterChange(section.key)}
+					/>
+				))}
+				<PriceFilter />
+			</div>
+		</>
 	)
 }

@@ -29,16 +29,18 @@ export default async function Products() {
 
 	return (
 		<div>
-			<div className='bg-neutral-light-100 py-6'>
+			<div className='bg-neutral-light-100 py-3 md:py-4 lg:py-6'>
 				<PageContainer>
 					<BreadcrumbComponent />
 				</PageContainer>
 			</div>
-			<PageContainer className='mt-8 flex justify-between'>
-				<FiltersSidebar availableFilters={availableFilters} />
-				<div className='ml-8 w-full'>
-					<AppliedFilters />
-					<CatalogSection />
+			<PageContainer className='mt-8 flex justify-center lg:justify-between'>
+				<div className='flex flex-col lg:flex-row gap-6 lg:gap-10 w-full'>
+					<FiltersSidebar availableFilters={availableFilters} />
+					<div className='flex-1 min-w-0 w-full'>
+						<AppliedFilters />
+						<CatalogSection />
+					</div>
 				</div>
 			</PageContainer>
 		</div>

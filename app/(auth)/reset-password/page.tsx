@@ -56,18 +56,18 @@ export default function ResetPasswordPage() {
 		return (
 			<>
 				<PageTitleWide title='Reset Password' />
-				<PageContainer>
-					<div className='text-center mt-32 py-12'>
-						<Text className='text-heading-h4 text-neutral-900 font-medium'>
+				<PageContainer className='px-4'>
+					<div className='text-center mt-16 md:mt-24 lg:mt-32 py-8 md:py-12'>
+						<Text className='text-lg md:text-heading-h4 text-neutral-900 font-medium'>
 							Password reset successful!
 						</Text>
-						<Text className='mt-1'>
+						<Text className='mt-1 text-sm md:text-body text-neutral-600'>
 							Please log in with your new password.
 						</Text>
 						<Button
 							variant='default'
 							size='lg'
-							className='mt-6 font-medium rounded-sm'
+							className='mt-4 md:mt-6 font-medium rounded-sm w-full sm:w-auto'
 							onClick={() => router.push('/login')}
 						>
 							Log in <MoveRight />
@@ -81,17 +81,17 @@ export default function ResetPasswordPage() {
 	return (
 		<AuthRedirect redirectTo='/'>
 			<PageTitleWide title='Reset Password' />
-			<PageContainer>
-				<div className='flex mt-32 items-center justify-center py-12'>
-					<div className='w-full max-w-80 space-y-8'>
+			<PageContainer className='px-4'>
+				<div className='flex mt-16 md:mt-24 lg:mt-32 items-center justify-center py-8 md:py-12'>
+					<div className='w-full max-w-sm md:max-w-80 space-y-6 md:space-y-8'>
 						<form
 							onSubmit={handleSubmit}
-							className='space-y-5'
+							className='space-y-4 md:space-y-5'
 						>
 							<div>
 								<label
 									htmlFor='newPassword'
-									className='mb-2 block text-body font-medium text-neutral-600'
+									className='mb-1.5 md:mb-2 block text-sm md:text-body font-medium text-neutral-600'
 								>
 									New password
 								</label>
@@ -106,14 +106,14 @@ export default function ResetPasswordPage() {
 										)
 									}
 									placeholder='Enter new password'
-									className='w-full py-5'
+									className='w-full py-4 md:py-5'
 									error={errors.newPassword}
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor='confirmPassword'
-									className='mb-2 block text-body font-medium text-neutral-600'
+									className='mb-1.5 md:mb-2 block text-sm md:text-body font-medium text-neutral-600'
 								>
 									Confirm password
 								</label>
@@ -128,12 +128,12 @@ export default function ResetPasswordPage() {
 										)
 									}
 									placeholder='Confirm your password'
-									className='w-full py-5'
+									className='w-full py-4 md:py-5'
 									error={errors.confirmPassword}
 								/>
 							</div>
 							{errors.global && (
-								<p className='mt-1 text-body text-red-500'>
+								<p className='mt-1 text-sm md:text-body text-red-500'>
 									{errors.global}
 								</p>
 							)}

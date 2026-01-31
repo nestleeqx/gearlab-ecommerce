@@ -9,16 +9,16 @@ export default function Banner() {
 	const router = useRouter()
 
 	return (
-		<section className='relative bg-neutral-light-100 min-h-110 flex items-center overflow-hidden'>
+		<section className='relative bg-neutral-light-100 min-h-108 flex items-center overflow-hidden'>
 			<div className='w-full'>
 				<div className='container-custom'>
 					<div className='flex justify-between mt-23'>
 						<div className='animate-fade-in-up'>
-							<h2 className='text-heading-h2 font-semibold text-neutral-800'>
+							<h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-heading-h2 font-semibold text-neutral-800'>
 								Fresh Arrivals Online
 							</h2>
 							<Text
-								className='mt-3 animate-fade-in-up [animation-delay:100ms]'
+								className='mt-3 text-sm animate-fade-in-up [animation-delay:100ms]'
 								color={600}
 							>
 								Discover Our Newest Collection Today.
@@ -26,7 +26,7 @@ export default function Banner() {
 							<Button
 								variant='default'
 								size='lg'
-								className='mt-12 font-medium rounded-sm animate-fade-in-up [animation-delay:200ms]'
+								className='mt-5 md:mt-7 lg:mt-12 font-medium rounded-sm animate-fade-in-up [animation-delay:200ms]'
 								onClick={() => router.push('/products')}
 							>
 								View Collection {''} <MoveRight />
@@ -56,10 +56,16 @@ export default function Banner() {
 							<Image
 								src='/images/hero/model-back.png'
 								alt='hero-banner'
-								className='absolute bottom-0 animate-fade-in-right [animation-delay:400ms]'
-								width={235}
-								height={382}
+								className='absolute bottom-0 animate-fade-in-right [animation-delay:400ms] -left-7 md:left-auto lg:left-auto'
+								width={256}
+								height={375}
 								priority
+								sizes='(max-width: 640px) 220px, (max-width: 1024px) 260px, 256px'
+								style={{
+									width: 'auto',
+									height: 'auto',
+									display: 'block'
+								}}
 							/>
 						</div>
 					</div>

@@ -8,18 +8,19 @@ const manropeSans = Manrope({
 })
 
 interface iLogo {
+	className?: string
 	position?: 'h' | 'f'
 }
 
-export default function Logo({ position = 'h' }: iLogo) {
+export default function Logo({ className, position = 'h' }: iLogo) {
 	return (
 		<Link
 			href='/'
-			className='flex items-center'
+			className={cn('flex items-center', className)}
 		>
 			<div
 				className={cn(
-					'flex justify-center items-center w-11 h-10 rounded-full',
+					'flex justify-center items-center w-10 h-10 rounded-full',
 					{
 						'rounded-full bg-neutral-900': position === 'h',
 						'border rounded-md outline-bg-neutral-100':

@@ -19,9 +19,9 @@ export default function ResultsHeader({
 	onSortChange
 }: iResultsHeader) {
 	return (
-		<div className='flex justify-between items-center mb-6'>
+		<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 mb-6'>
 			<div>
-				<span className='text-body text-neutral-600'>
+				<span className='text-sm lg:text-body text-neutral-600'>
 					Showing {showingFrom}-{showingTo} of {total} Results.
 				</span>
 			</div>
