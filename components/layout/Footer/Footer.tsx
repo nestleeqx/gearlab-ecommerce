@@ -192,7 +192,7 @@ export default function Footer() {
 					</div>
 					<div className='flex justify-center items-center space-x-6 py-6 border-t border-neutral-light-200'>
 						<Link
-							href='https://github.com/NestleeQ'
+							href='https://github.com/nestleeqx'
 							className='text-neutral-500 hover:text-neutral-900 transition-colors'
 							aria-label='GitHub'
 						>
@@ -240,7 +240,7 @@ export default function Footer() {
 				</div>
 				<div className='text-center mt-6 lg:mt-30 pt-6 border-t border-neutral-light-200'>
 					<Text className='text-neutral-600 text-xs md:text-sm'>
-						© {new Date().getFullYear()} Nestlee_Q. All rights
+						© {new Date().getFullYear()} nestleeqx. All rights
 						reserved.
 					</Text>
 				</div>
